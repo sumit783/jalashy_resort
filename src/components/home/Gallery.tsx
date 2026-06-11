@@ -1,0 +1,291 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import FadeUp from "./FadeUp";
+import Link from "next/link";
+
+import lakesideImg from "@/assets/lakeside.jpg";
+import poolImg from "@/assets/pool.jpg";
+import aamraiImg from "@/assets/aamrai.jpg";
+import restaurantImg from "@/assets/restaurant.jpg";
+import weddingImg from "@/assets/wedding-lawn.jpg";
+import roomImg from "@/assets/room.jpg";
+import lakesideSuiteImg from "@/assets/lakeside_suite.png";
+import gardenVillaImg from "@/assets/garden_villa.png";
+import mangoCottageImg from "@/assets/mango_cottage.png";
+import heroResortImg from "@/assets/hero-resort.jpg";
+
+const galleryItems = [
+  {
+    id: 1,
+    title: "Lakeside Serenity",
+    category: "Nature",
+    image: lakesideImg,
+    description: "Witness pristine mornings where the lake water reflects the golden horizon.",
+  },
+  {
+    id: 2,
+    title: "Infinity Pool",
+    category: "Leisure",
+    image: poolImg,
+    description: "A sparkling retreat to unwind, seamlessly blending with the surrounding canopy.",
+  },
+  {
+    id: 3,
+    title: "Sunset Wedding Lawn",
+    category: "Celebrations",
+    image: weddingImg,
+    description: "An elegant, manicured lawn prepared for a grand seaside/lakeside union.",
+  },
+  {
+    id: 4,
+    title: "Mango Grove (Aamrai)",
+    category: "Nature",
+    image: aamraiImg,
+    description: "A shaded sanctuary cooled by mature mango trees, perfect for quiet afternoon strolls.",
+  },
+  {
+    id: 5,
+    title: "Fine Dining Restaurant",
+    category: "Culinary",
+    image: restaurantImg,
+    description: "Gourmet local cuisine served with views of the sunset over the lake.",
+  },
+  {
+    id: 6,
+    title: "Luxury Accommodations",
+    category: "Suites",
+    image: roomImg,
+    description: "Plush, details-driven rooms designed to host your guests in complete comfort.",
+  },
+  {
+    id: 7,
+    title: "Elegant Lakeside Suite",
+    category: "Suites",
+    image: lakesideSuiteImg,
+    description: "Panoramic lake vistas, private glass frontage, and premium finishes.",
+  },
+  {
+    id: 8,
+    title: "Premium Garden Villa",
+    category: "Suites",
+    image: gardenVillaImg,
+    description: "Seamless indoor-outdoor living opening onto tropical manicured lawns.",
+  },
+  {
+    id: 9,
+    title: "Charming Mango Cottage",
+    category: "Suites",
+    image: mangoCottageImg,
+    description: "Heritage design sheltered under the resort's ancient canopy.",
+  },
+  {
+    id: 10,
+    title: "Resort Facade",
+    category: "Architecture",
+    image: heroResortImg,
+    description: "Classic architecture meeting nature's embrace at Jalashay Resort.",
+  },
+];
+
+export default function Gallery() {
+  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+
+  const visibleItems = galleryItems.slice(0, 6);
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeImageIndex === null) return;
+      if (e.key === "Escape") {
+        setActiveImageIndex(null);
+      } else if (e.key === "ArrowRight") {
+        setActiveImageIndex((prev) =>
+          prev !== null ? (prev + 1) % galleryItems.length : null
+        );
+      } else if (e.key === "ArrowLeft") {
+        setActiveImageIndex((prev) =>
+          prev !== null
+            ? (prev - 1 + galleryItems.length) % galleryItems.length
+            : null
+        );
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeImageIndex]);
+
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (activeImageIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeImageIndex]);
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveImageIndex((prev) =>
+      prev !== null ? (prev + 1) % galleryItems.length : null
+    );
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveImageIndex((prev) =>
+      prev !== null ? (prev - 1 + galleryItems.length) % galleryItems.length : null
+    );
+  };
+
+  return (
+    <section id="gallery" className="relative py-32 bg-background/40">
+      <div className="mx-auto max-w-6xl px-6">
+        <FadeUp>
+          <div className="mb-20 text-center">
+            <span className="text-xs uppercase tracking-[0.4em] text-gold">
+              — Gallery
+            </span>
+            <h2 className="mt-6 font-display text-5xl font-light leading-tight md:text-6xl">
+              Lakeside luxury in{" "}
+              <span className="text-gold-gradient italic">pictures</span>
+            </h2>
+          </div>
+        </FadeUp>
+
+        {/* Gallery Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <AnimatePresence initial={false}>
+            {visibleItems.map((item, idx) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative overflow-hidden rounded-sm border border-border/40 bg-card/40 cursor-pointer shimmer-border aspect-[4/3]"
+                onClick={() => setActiveImageIndex(idx)}
+              >
+                {/* Image */}
+                <img
+                  src={item.image.src}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                  loading="lazy"
+                />
+
+                {/* Ambient Glow / Border Shadow Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Hover UI Info Card */}
+                <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-medium">
+                    {item.category}
+                  </span>
+                  <h3 className="mt-1 font-display text-2xl text-foreground font-light">
+                    {item.title}
+                  </h3>
+                  <span className="mt-3 flex items-center gap-1.5 text-xs text-gold font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                    <Eye className="h-3.5 w-3.5" /> View Photo
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Expand / Collapse Button */}
+        <div className="mt-16 text-center">
+          <Link
+            href="/gallery"
+            className="inline-flex items-center justify-center rounded-full bg-[image:var(--gradient-gold)] px-10 py-4 text-xs font-semibold uppercase tracking-widest text-primary-foreground shadow-[var(--shadow-gold)] transition-transform hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+          >
+            Explore Full Gallery
+          </Link>
+        </div>
+      </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {activeImageIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex flex-col justify-between bg-background/95 backdrop-blur-md p-4 md:p-8"
+            onClick={() => setActiveImageIndex(null)}
+          >
+            {/* Top Bar with counter & close */}
+            <div className="flex items-center justify-between w-full z-10 max-w-6xl mx-auto">
+              <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-semibold">
+                Photo {activeImageIndex + 1} of {galleryItems.length}
+              </span>
+              <button
+                className="p-3 rounded-full border border-border/40 bg-card/60 backdrop-blur-sm text-foreground hover:bg-gold/10 hover:border-gold/60 transition-all cursor-pointer"
+                onClick={() => setActiveImageIndex(null)}
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Main Image Slider Area */}
+            <div className="relative flex flex-1 items-center justify-center w-full max-w-6xl mx-auto my-4 overflow-hidden">
+              {/* Prev Button */}
+              <button
+                className="absolute left-0 md:left-4 z-20 p-3 rounded-full border border-border/40 bg-card/60 backdrop-blur-sm text-foreground hover:bg-gold/10 hover:border-gold/60 transition-all cursor-pointer"
+                onClick={handlePrev}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              {/* Central Image Panel */}
+              <motion.div
+                key={activeImageIndex}
+                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="relative max-h-[70vh] w-full flex items-center justify-center px-12"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={galleryItems[activeImageIndex].image.src}
+                  alt={galleryItems[activeImageIndex].title}
+                  className="max-h-[70vh] max-w-full rounded-sm object-contain shadow-2xl select-none"
+                />
+              </motion.div>
+
+              {/* Next Button */}
+              <button
+                className="absolute right-0 md:right-4 z-20 p-3 rounded-full border border-border/40 bg-card/60 backdrop-blur-sm text-foreground hover:bg-gold/10 hover:border-gold/60 transition-all cursor-pointer"
+                onClick={handleNext}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Bottom bar with Details */}
+            <div className="text-center z-10 max-w-xl mx-auto pb-4">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-gold font-bold">
+                {galleryItems[activeImageIndex].category}
+              </span>
+              <h3 className="mt-2 font-display text-3xl text-foreground font-light leading-tight">
+                {galleryItems[activeImageIndex].title}
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {galleryItems[activeImageIndex].description}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
