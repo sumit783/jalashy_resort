@@ -1,0 +1,1 @@
+# jalashy_resort
