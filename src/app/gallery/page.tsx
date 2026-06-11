@@ -7,16 +7,6 @@ import Link from "next/link";
 import FadeUp from "@/components/home/FadeUp";
 import { useBooking } from "@/context/BookingContext";
 
-import lakesideImg from "@/assets/lakeside.jpg";
-import poolImg from "@/assets/pool.jpg";
-import aamraiImg from "@/assets/aamrai.jpg";
-import restaurantImg from "@/assets/restaurant.jpg";
-import weddingImg from "@/assets/wedding-lawn.jpg";
-import roomImg from "@/assets/room.jpg";
-import lakesideSuiteImg from "@/assets/lakeside_suite.png";
-import gardenVillaImg from "@/assets/garden_villa.png";
-import mangoCottageImg from "@/assets/mango_cottage.png";
-import heroResortImg from "@/assets/hero-resort.jpg";
 
 interface GalleryItem {
   id: number;
@@ -35,7 +25,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Lakeside Serenity",
     category: "Nature",
-    image: lakesideImg,
+    image: "/assets/lakeside.webp",
     description: "Witness pristine mornings where the lake water reflects the golden horizon.",
     aspect: "aspect-[4/3]",
   },
@@ -53,7 +43,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Infinity Waters",
     category: "Leisure",
-    image: poolImg,
+    image: "/assets/pool.webp",
     description: "Unwind at our sparkling infinity pool that merges with the tree lines.",
     aspect: "aspect-square",
   },
@@ -62,7 +52,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Mango Grove Canopy",
     category: "Nature",
-    image: aamraiImg,
+    image: "/assets/aamrai.webp",
     description: "A shady sanctuary cooled by decades-old mango trees (Aamrai) for peaceful walks.",
     aspect: "aspect-[3/4]",
   },
@@ -80,7 +70,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "The Dining Pavilion",
     category: "Culinary",
-    image: restaurantImg,
+    image: "/assets/restaurant.webp",
     description: "Indulge in curated local delicacies served with panoramic views of the water.",
     aspect: "aspect-[4/3]",
   },
@@ -89,7 +79,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Grand Sunset Lawn",
     category: "Celebrations",
-    image: weddingImg,
+    image: "/assets/wedding-lawn.webp",
     description: "Our premier lakefront wedding lawn, set up for a celebration of 100-200 guests.",
     aspect: "aspect-[3/2]",
   },
@@ -98,7 +88,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Plush Guest Room",
     category: "Suites",
-    image: roomImg,
+    image: "/assets/room.webp",
     description: "Elegantly styled accommodations designed to ensure maximum comfort for your wedding guests.",
     aspect: "aspect-[3/4]",
   },
@@ -116,7 +106,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Lakeside Suite",
     category: "Suites",
-    image: lakesideSuiteImg,
+    image: "/assets/lakeside_suite.png",
     description: "Wake up to endless water views with our premium, glass-fronted suite design.",
     aspect: "aspect-[4/3]",
   },
@@ -125,7 +115,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Garden Villa",
     category: "Suites",
-    image: gardenVillaImg,
+    image: "/assets/garden_villa.png",
     description: "Opening directly onto beautifully landscaped lawns for a perfect indoor-outdoor feel.",
     aspect: "aspect-[3/2]",
   },
@@ -134,7 +124,7 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Mango Grove Cottage",
     category: "Suites",
-    image: mangoCottageImg,
+    image: "/assets/mango_cottage.png",
     description: "A heritage-style private cottage nestled deep in our shade-giving aamrai grove.",
     aspect: "aspect-[4/3]",
   },
@@ -143,9 +133,189 @@ const galleryItems: GalleryItem[] = [
     type: "image",
     title: "Main Resort Entrance",
     category: "Architecture",
-    image: heroResortImg,
+    image: "/assets/hero-resort.webp",
     description: "Traditional craftsmanship meets contemporary luxury at the main entrance.",
     aspect: "aspect-[16/9]",
+  },
+  {
+    id: 14,
+    type: "image",
+    title: "Lakeside Palms Canopy",
+    category: "Nature",
+    image: "/outdoor_images/020A6239.webp",
+    description: "Pristine lakeside pathways decorated with tall coconut palms and lush lawns.",
+    aspect: "aspect-[4/3]",
+  },
+  {
+    id: 15,
+    type: "image",
+    title: "Lakefront Promenade",
+    category: "Nature",
+    image: "/outdoor_images/020A6241.webp",
+    description: "Take a quiet stroll along the waterfront promenade offering endless vistas.",
+    aspect: "aspect-[3/2]",
+  },
+  {
+    id: 16,
+    type: "image",
+    title: "Sunset Wedding Lawn",
+    category: "Celebrations",
+    image: "/outdoor_images/020A6244.webp",
+    description: "Sprawling open-air lawns perfect for hosting grand events and wedding sangeets.",
+    aspect: "aspect-[16/9]",
+  },
+  {
+    id: 17,
+    type: "image",
+    title: "Green Oasis Walkway",
+    category: "Nature",
+    image: "/outdoor_images/020A6254.webp",
+    description: "Scenic green trails winding through the resort's meticulously landscaped gardens.",
+    aspect: "aspect-[3/4]",
+  },
+  {
+    id: 18,
+    type: "image",
+    title: "Twilight Lake View",
+    category: "Nature",
+    image: "/outdoor_images/020A6262.webp",
+    description: "Watch the colors of twilight blend over the calm waters of the resort's private lakefront.",
+    aspect: "aspect-square",
+  },
+  {
+    id: 19,
+    type: "image",
+    title: "Lakeside Premium Room",
+    category: "Suites",
+    image: "/roomImages/020A6091.webp",
+    description: "An elegantly furnished room combining rustic warmth with modern luxury.",
+    aspect: "aspect-[3/4]",
+  },
+  {
+    id: 20,
+    type: "image",
+    title: "Heritage Luxury Room",
+    category: "Suites",
+    image: "/roomImages/020A6097.webp",
+    description: "Plush fabrics and cozy seating areas overlooking the garden canopy.",
+    aspect: "aspect-[4/3]",
+  },
+  {
+    id: 21,
+    type: "image",
+    title: "Presidential Bedchamber",
+    category: "Suites",
+    image: "/roomImages/020A6099.webp",
+    description: "Unwind in state-of-the-art bedding designed for deep, peaceful rest.",
+    aspect: "aspect-square",
+  },
+  {
+    id: 22,
+    type: "image",
+    title: "Executive Deluxe Suite",
+    category: "Suites",
+    image: "/roomImages/020A6152.webp",
+    description: "Beautifully styled room with dedicated vanity, storage space and modern aesthetics.",
+    aspect: "aspect-[3/2]",
+  },
+  {
+    id: 23,
+    type: "image",
+    title: "Garden View Deluxe",
+    category: "Suites",
+    image: "/roomImages/020A6170.webp",
+    description: "Wake up to fresh garden views in this contemporary, space-optimized retreat.",
+    aspect: "aspect-[4/3]",
+  },
+  {
+    id: 24,
+    type: "image",
+    title: "Golden Hour Resort Entrance",
+    category: "Architecture",
+    image: "/sliderImage/slider-1.webp",
+    description: "The architectural gateway of Jalashay Resort catching the evening sun.",
+    aspect: "aspect-[16/9]",
+  },
+  {
+    id: 25,
+    type: "image",
+    title: "Aamrai Mango Orchard Pathway",
+    category: "Nature",
+    image: "/sliderImage/slider-2.webp",
+    description: "Sunlight filtering through the canopy of mature mango trees.",
+    aspect: "aspect-[3/4]",
+  },
+  {
+    id: 26,
+    type: "image",
+    title: "Lakeside Infinity Pool Deck",
+    category: "Leisure",
+    image: "/sliderImage/slider-3.webp",
+    description: "Take in the panoramic water horizon from our lounge deck by the pool.",
+    aspect: "aspect-[4/3]",
+  },
+  {
+    id: 27,
+    type: "image",
+    title: "Premium Lakefront Villas",
+    category: "Architecture",
+    image: "/sliderImage/slider-4.webp",
+    description: "Traditional roofing meets modern glass facades directly fronting the lake.",
+    aspect: "aspect-[3/2]",
+  },
+  {
+    id: 28,
+    type: "image",
+    title: "Grand Ballroom & Marquee",
+    category: "Celebrations",
+    image: "/sliderImage/slider-5.webp",
+    description: "Stunning open structure designed to hold memorable corporate and wedding celebrations.",
+    aspect: "aspect-[16/9]",
+  },
+  {
+    id: 29,
+    type: "image",
+    title: "Lakeside Sunset Lawn",
+    category: "Celebrations",
+    image: "/sliderImage/020A6307.webp",
+    description: "A magical lakefront setting, pristine for hosting wedding vows and receptions.",
+    aspect: "aspect-[3/2]",
+  },
+  {
+    id: 30,
+    type: "image",
+    title: "Lakeside Canopy Suite",
+    category: "Suites",
+    image: "/sliderImage/020A6063.webp",
+    description: "Ultra-private suite offering private balcony views of the calm lake.",
+    aspect: "aspect-[4/3]",
+  },
+  {
+    id: 31,
+    type: "image",
+    title: "Deluxe Twin Suite",
+    category: "Suites",
+    image: "/sliderImage/020A6071.webp",
+    description: "Comfortable twin-bed setups designed with modern minimalist architecture.",
+    aspect: "aspect-[3/2]",
+  },
+  {
+    id: 32,
+    type: "image",
+    title: "Lakeside Evening Pathway",
+    category: "Nature",
+    image: "/sliderImage/slider-3.webp",
+    description: "Beautifully lit brick pathways wrapping around the waterfront.",
+    aspect: "aspect-square",
+  },
+  {
+    id: 33,
+    type: "image",
+    title: "Waterfront Sitting Lounge",
+    category: "Leisure",
+    image: "/sliderImage/020A6269.webp",
+    description: "Cozy sit-outs directly on the lakeside edge, ideal for morning tea.",
+    aspect: "aspect-[4/3]",
   },
 ];
 
@@ -311,7 +481,7 @@ export default function GalleryPage() {
                     </div>
                   ) : (
                     <img
-                      src={item.image.src}
+                      src={item.image}
                       alt={item.title}
                       className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
                       loading="lazy"
@@ -402,7 +572,7 @@ export default function GalleryPage() {
                   />
                 ) : (
                   <img
-                    src={filteredItems[activeItemIndex].image.src}
+                    src={filteredItems[activeItemIndex].image}
                     alt={filteredItems[activeItemIndex].title}
                     className="max-h-[70vh] max-w-full rounded-sm object-contain shadow-2xl select-none"
                   />

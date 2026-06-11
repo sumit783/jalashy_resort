@@ -1,6 +1,5 @@
 import { Trophy, Sailboat } from "lucide-react";
 import FadeUp from "./FadeUp";
-import lakesideImg from "@/assets/lakeside.jpg";
 
 export default function Activities() {
   const games = ["Cricket", "Badminton", "Football"];
@@ -10,7 +9,7 @@ export default function Activities() {
         <FadeUp delay={0.1}>
           <div className="relative aspect-square overflow-hidden rounded-sm shimmer-border">
             <img
-              src={lakesideImg.src}
+              src={"/assets/lakeside.webp"}
               alt="Lakeside view at sunset"
               className="h-full w-full object-cover"
               loading="lazy"

@@ -1,11 +1,13 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Star, Quote } from "lucide-react";
 import FadeUp from "./FadeUp";
 
 interface Review {
-  id: number;
+  id: string | number;
   name: string;
+  avatarUrl?: string;
   role: string;
   rating: number;
   text: string;
@@ -64,8 +66,45 @@ const REVIEWS: Review[] = [
 ];
 
 export default function Reviews() {
-  // Double the reviews to create a seamless infinite scroll loop
-  const duplicatedReviews = [...REVIEWS, ...REVIEWS];
+  const [reviews, setReviews] = useState<Review[]>(REVIEWS);
+
+  useEffect(() => {
+    fetch("https://featurable.com/api/v2/widgets/00434c9f-0e42-438b-a035-3b11fc90a5e8")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.widget?.reviews) {
+          const mapped: Review[] = data.widget.reviews.map((r: any) => ({
+            id: r.id,
+            name: r.author.name,
+            avatarUrl: r.author.avatarUrl,
+            role: r.platform === "gbp" ? "Google Review" : "Guest Review",
+            rating: r.rating.value,
+            text: r.text,
+            date: new Date(r.publishedAt).toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
+            }),
+          }));
+          const combined = [
+            ...mapped,
+            ...REVIEWS.filter(
+              (staticRev) =>
+                !mapped.some(
+                  (apiRev) => apiRev.name.toLowerCase() === staticRev.name.toLowerCase()
+                )
+            ),
+          ];
+          setReviews(combined);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch reviews:", err);
+      });
+  }, []);
+
+  // Double the reviews to create a seamless infinite scroll loop if we have 3+ reviews
+  const shouldSlide = reviews.length >= 3;
+  const displayReviews = shouldSlide ? [...reviews, ...reviews] : reviews;
 
   return (
     <section
@@ -97,11 +136,11 @@ export default function Reviews() {
         <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-        <div className="flex marquee pause-hover gap-6 px-3">
-          {duplicatedReviews.map((review, idx) => (
+        <div className={`flex gap-6 px-3 ${shouldSlide ? "marquee pause-hover" : "mx-auto justify-center"}`}>
+          {displayReviews.map((review, idx) => (
             <div
               key={`${review.id}-${idx}`}
-              className="w-[380px] shrink-0 bg-card/40 border border-border/30 backdrop-blur-md p-8 rounded-2xl flex flex-col justify-between h-[260px] hover:border-gold/40 hover:bg-card/60 transition-all duration-300 shadow-soft shimmer-border"
+              className="w-[380px] shrink-0 bg-card/40 border border-border/30 backdrop-blur-md p-8 rounded-2xl flex flex-col justify-between h-[280px] hover:border-gold/40 hover:bg-card/60 transition-all duration-300 shadow-soft shimmer-border"
             >
               <div>
                 {/* Header: Stars & Quote */}
@@ -114,22 +153,36 @@ export default function Reviews() {
                   <Quote className="w-8 h-8 text-gold/20" />
                 </div>
 
-                {/* Review Text */}
-                <p className="text-sm font-sans font-light leading-relaxed text-muted-foreground line-clamp-4 italic">
-                  "{review.text}"
-                </p>
+                {/* Review Text Container - fixed height for uniform layout */}
+                <div className="h-[92px] overflow-hidden flex items-start">
+                  <p className="text-sm font-sans font-light leading-relaxed text-muted-foreground line-clamp-4 italic">
+                    "{review.text}"
+                  </p>
+                </div>
               </div>
 
               {/* Footer: User Details */}
-              <div className="flex items-center gap-4 mt-6 pt-4 border-t border-border/20">
-                <div className="w-10 h-10 rounded-full bg-[image:var(--gradient-gold)] flex items-center justify-center text-primary-foreground font-semibold text-xs shadow-md">
-                  {review.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </div>
+              <div className="flex items-center gap-4 pt-4 border-t border-border/20">
+                {review.avatarUrl ? (
+                  <img
+                    src={review.avatarUrl}
+                    alt={review.name}
+                    className="w-10 h-10 rounded-full object-cover border border-gold/30 shadow-md"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-[image:var(--gradient-gold)] flex items-center justify-center text-primary-foreground font-semibold text-xs shadow-md">
+                    {review.name
+                      ? review.name
+                          .split(" ")
+                          .filter(Boolean)
+                          .map((n) => n[0])
+                          .join("")
+                          .slice(0, 2)
+                          .toUpperCase()
+                      : "??"}
+                  </div>
+                )}
                 <div className="text-left">
                   <h4 className="font-display text-base font-medium text-foreground tracking-wide">
                     {review.name}

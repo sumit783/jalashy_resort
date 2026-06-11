@@ -1,94 +1,170 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+
+// Custom hook for Intersection Observer lazy loading
+function useLazyLoad() {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px 80px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import FadeUp from "./FadeUp";
 import Link from "next/link";
 
-import lakesideImg from "@/assets/lakeside.jpg";
-import poolImg from "@/assets/pool.jpg";
-import aamraiImg from "@/assets/aamrai.jpg";
-import restaurantImg from "@/assets/restaurant.jpg";
-import weddingImg from "@/assets/wedding-lawn.jpg";
-import roomImg from "@/assets/room.jpg";
-import lakesideSuiteImg from "@/assets/lakeside_suite.png";
-import gardenVillaImg from "@/assets/garden_villa.png";
-import mangoCottageImg from "@/assets/mango_cottage.png";
-import heroResortImg from "@/assets/hero-resort.jpg";
 
 const galleryItems = [
   {
     id: 1,
-    title: "Lakeside Serenity",
+    title: "Lakeside Sunset Deck",
     category: "Nature",
-    image: lakesideImg,
-    description: "Witness pristine mornings where the lake water reflects the golden horizon.",
+    image: "/home_images/020A5924.webp",
+    description: "Vibrant hues of sunset washing over the lakeside lounge chairs.",
   },
   {
     id: 2,
-    title: "Infinity Pool",
+    title: "Waterfront Lounge Setup",
     category: "Leisure",
-    image: poolImg,
-    description: "A sparkling retreat to unwind, seamlessly blending with the surrounding canopy.",
+    image: "/home_images/020A5930.webp",
+    description: "Relax by the tranquil waters with our comfortable lakeside seating options.",
   },
   {
     id: 3,
-    title: "Sunset Wedding Lawn",
-    category: "Celebrations",
-    image: weddingImg,
-    description: "An elegant, manicured lawn prepared for a grand seaside/lakeside union.",
+    title: "Cozy Garden Sit-out",
+    category: "Leisure",
+    image: "/home_images/020A5959.webp",
+    description: "Shaded canopy sit-outs surrounded by lush lawns and coconut trees.",
   },
   {
     id: 4,
-    title: "Mango Grove (Aamrai)",
+    title: "Resort Walkway At Dusk",
     category: "Nature",
-    image: aamraiImg,
-    description: "A shaded sanctuary cooled by mature mango trees, perfect for quiet afternoon strolls.",
+    image: "/home_images/020A6018.webp",
+    description: "Warm lanterns illuminating the paved garden walkway winding through the resort.",
   },
   {
     id: 5,
-    title: "Fine Dining Restaurant",
-    category: "Culinary",
-    image: restaurantImg,
-    description: "Gourmet local cuisine served with views of the sunset over the lake.",
+    title: "Luxury Bedroom Suite",
+    category: "Suites",
+    image: "/home_images/020A6056.webp",
+    description: "Spacious, warm-lit bedrooms featuring premium wood craft and comfortable layout.",
   },
   {
     id: 6,
-    title: "Luxury Accommodations",
-    category: "Suites",
-    image: roomImg,
-    description: "Plush, details-driven rooms designed to host your guests in complete comfort.",
+    title: "Lakeside Brick Path",
+    category: "Nature",
+    image: "/home_images/020A6228.webp",
+    description: "A scenic walking path outlining the waterfront promenade.",
   },
   {
     id: 7,
     title: "Elegant Lakeside Suite",
     category: "Suites",
-    image: lakesideSuiteImg,
+    image: "/assets/lakeside_suite.png",
     description: "Panoramic lake vistas, private glass frontage, and premium finishes.",
   },
   {
     id: 8,
     title: "Premium Garden Villa",
     category: "Suites",
-    image: gardenVillaImg,
+    image: "/assets/garden_villa.png",
     description: "Seamless indoor-outdoor living opening onto tropical manicured lawns.",
   },
   {
     id: 9,
     title: "Charming Mango Cottage",
     category: "Suites",
-    image: mangoCottageImg,
+    image: "/assets/mango_cottage.png",
     description: "Heritage design sheltered under the resort's ancient canopy.",
   },
   {
     id: 10,
     title: "Resort Facade",
     category: "Architecture",
-    image: heroResortImg,
+    image: "/assets/hero-resort.webp",
     description: "Classic architecture meeting nature's embrace at Jalashay Resort.",
   },
 ];
+
+// Lazy-loading card using IntersectionObserver — image only loads when scrolled into view
+function LazyGalleryCard({
+  item,
+  idx,
+  onClick,
+}: {
+  item: (typeof galleryItems)[number];
+  idx: number;
+  onClick: () => void;
+}) {
+  const { ref, isVisible } = useLazyLoad();
+
+  return (
+    <motion.div
+      ref={ref}
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative overflow-hidden rounded-sm border border-border/40 bg-card/40 cursor-pointer shimmer-border aspect-[4/3]"
+      onClick={onClick}
+    >
+      {/* Skeleton placeholder while not visible */}
+      {!isVisible && (
+        <div className="absolute inset-0 bg-card/60 animate-pulse" />
+      )}
+
+      {/* Image — only rendered once in viewport */}
+      {isVisible && (
+        <img
+          src={item.image}
+          alt={item.title}
+          className="h-full w-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105 opacity-0"
+          loading="eager"
+          onLoad={(e) => {
+            (e.currentTarget as HTMLImageElement).style.opacity = "1";
+            (e.currentTarget as HTMLImageElement).style.transition =
+              "opacity 0.6s ease, transform 1200ms ease-out";
+          }}
+        />
+      )}
+
+      {/* Ambient Glow / Border Shadow Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      {/* Hover UI Info Card */}
+      <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-medium">
+          {item.category}
+        </span>
+        <h3 className="mt-1 font-display text-2xl text-foreground font-light">
+          {item.title}
+        </h3>
+        <span className="mt-3 flex items-center gap-1.5 text-xs text-gold font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+          <Eye className="h-3.5 w-3.5" /> View Photo
+        </span>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Gallery() {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
@@ -163,40 +239,12 @@ export default function Gallery() {
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           <AnimatePresence initial={false}>
             {visibleItems.map((item, idx) => (
-              <motion.div
+              <LazyGalleryCard
                 key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative overflow-hidden rounded-sm border border-border/40 bg-card/40 cursor-pointer shimmer-border aspect-[4/3]"
+                item={item}
+                idx={idx}
                 onClick={() => setActiveImageIndex(idx)}
-              >
-                {/* Image */}
-                <img
-                  src={item.image.src}
-                  alt={item.title}
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-
-                {/* Ambient Glow / Border Shadow Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Hover UI Info Card */}
-                <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-medium">
-                    {item.category}
-                  </span>
-                  <h3 className="mt-1 font-display text-2xl text-foreground font-light">
-                    {item.title}
-                  </h3>
-                  <span className="mt-3 flex items-center gap-1.5 text-xs text-gold font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-                    <Eye className="h-3.5 w-3.5" /> View Photo
-                  </span>
-                </div>
-              </motion.div>
+              />
             ))}
           </AnimatePresence>
         </div>
@@ -256,7 +304,7 @@ export default function Gallery() {
                 onClick={(e) => e.stopPropagation()}
               >
                 <img
-                  src={galleryItems[activeImageIndex].image.src}
+                  src={galleryItems[activeImageIndex].image}
                   alt={galleryItems[activeImageIndex].title}
                   className="max-h-[70vh] max-w-full rounded-sm object-contain shadow-2xl select-none"
                 />

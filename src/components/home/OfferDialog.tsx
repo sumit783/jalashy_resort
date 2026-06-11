@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Gift } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
-import offerImg from "@/assets/lakeside_suite.png";
 
 export default function OfferDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +76,7 @@ export default function OfferDialog() {
             {/* Image Container with aspect ratio */}
             <div className="relative aspect-[16/10] w-full overflow-hidden">
               <img
-                src={offerImg.src}
+                src={"/assets/lakeside_suite.png"}
                 alt="Luxury Lakeside Suite"
                 className="h-full w-full object-cover"
               />

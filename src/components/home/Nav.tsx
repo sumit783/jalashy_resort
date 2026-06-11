@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import Link from "next/link";
 import {
   Sheet,
   SheetContent,
@@ -110,6 +111,22 @@ export default function Nav() {
                       >
                         Contact
                       </a>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
+                        href="/gallery"
+                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
+                      >
+                        Gallery
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
+                        href="/blog"
+                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
+                      >
+                        Journal
+                      </Link>
                     </SheetClose>
                   </nav>
                 </div>

@@ -1,12 +1,20 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
-import heroImg from "@/assets/hero-resort.jpg";
+import Image from "next/image";
+const sliderImages = [
+  "/sliderImage/slider-3.webp",
+  "/sliderImage/slider-2.webp",
+  "/sliderImage/slider-1.webp",
+  "/sliderImage/slider-5.webp",
+  "/sliderImage/slider-4.webp",
+  "/sliderImage/020A6307.webp",
+];
 import {
   Popover,
   PopoverContent,
@@ -32,6 +40,7 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +48,13 @@ export default function Hero() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % sliderImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
   }, []);
 
   const { bookingQuery, updateBookingQuery, openBooking } = useBooking();
@@ -60,14 +76,27 @@ export default function Hero() {
       className="relative min-h-screen md:h-screen md:min-h-[640px] w-full overflow-hidden flex items-center justify-center"
     >
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <img
-          src={heroImg.src}
-          alt="Jalashay Resort exterior at golden hour"
-          className="h-full w-full object-cover"
-          width={1920}
-          height={1280}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={currentImageIndex}
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "-100%", opacity: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 h-full w-full"
+          >
+            <Image
+              src={sliderImages[currentImageIndex]}
+              alt={`Jalashay Resort background slide ${currentImageIndex + 1}`}
+              fill
+              priority={currentImageIndex === 0}
+              className="object-cover"
+              sizes="100vw"
+            />
+          </motion.div>
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/50 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background z-10" />
       </motion.div>
 
       <motion.div
@@ -240,7 +269,7 @@ export default function Hero() {
             <div className="h-8 w-px bg-border/20 hidden md:block" />
 
             {/* Children */}
-            <div className="flex flex-col items-start w-full col-span-1 md:w-28 px-3 text-left">
+            <div className="flex flex-col items-start w-full col-span-1 md:w-30 px-3 text-left">
               <label className="text-[9px] uppercase tracking-widest text-gold font-medium mb-1.5">
                 Children
               </label>

@@ -24,7 +24,7 @@ export default function Home() {
       <Gallery />
       <Rooms />
       <Features />
-      <TourVideo />
+      {/* <TourVideo /> */}
       <Reviews />
       <WeddingBanner />
       <Activities />

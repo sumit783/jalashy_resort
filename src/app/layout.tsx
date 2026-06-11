@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { BookingProvider } from "@/context/BookingContext";
 import BookingDialog from "@/components/home/BookingDialog";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import "../styles.css";
 
 const cormorant = Cormorant_Garamond({
@@ -52,6 +53,7 @@ export default function RootLayout({
         <BookingProvider>
           {children}
           <BookingDialog />
+          <WhatsAppButton />
         </BookingProvider>
         <Toaster theme="dark" position="bottom-right" closeButton richColors />
       </body>

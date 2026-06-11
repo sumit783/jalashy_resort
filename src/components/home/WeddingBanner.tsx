@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import FadeUp from "./FadeUp";
-import weddingImg from "@/assets/wedding-lawn.jpg";
 
 export default function WeddingBanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,7 +19,7 @@ export default function WeddingBanner() {
     >
       <motion.div style={{ y }} className="absolute inset-0 h-[140%]">
         <img
-          src={weddingImg.src}
+          src={"/assets/wedding-lawn.webp"}
           alt="Wedding mandap"
           className="h-full w-full object-cover"
           loading="lazy"

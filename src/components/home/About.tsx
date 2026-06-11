@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import FadeUp from "./FadeUp";
-import weddingImg from "@/assets/wedding-lawn.jpg";
 
 export default function About() {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,7 +47,7 @@ export default function About() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm shimmer-border">
             <motion.img
               style={{ y: imgY }}
-              src={weddingImg.src}
+              src={"/wedding-lawn.jpg"}
               alt="Wedding mandap on lawn at sunset"
               className="absolute inset-0 h-[120%] w-full object-cover"
               loading="lazy"

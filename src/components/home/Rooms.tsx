@@ -1,26 +1,23 @@
 "use client";
 
 import FadeUp from "./FadeUp";
-import lakesideSuiteImg from "@/assets/lakeside_suite.png";
-import gardenVillaImg from "@/assets/garden_villa.png";
-import mangoCottageImg from "@/assets/mango_cottage.png";
 
 const rooms = [
   {
-    name: "Lakeside Suite",
-    desc: "Panoramic lake vistas, private glass frontage, and bespoke marble fittings.",
-    image: lakesideSuiteImg,
+    name: "Presidential Lakefront Suite",
+    desc: "Panoramic lake vistas, private glass balcony, and bespoke marble fittings.",
+    image: "/roomImages/020A6091.webp",
   },
   {
-    name: "Garden Villa",
-    desc: "Seamless indoor-outdoor living opening onto tropical manicured lawns.",
-    image: gardenVillaImg,
+    name: "Lakeside Premium Suite",
+    desc: "Elegantly furnished with rustic teak wood and direct lake frontage sit-outs.",
+    image: "/roomImages/020A6097.webp",
   },
   {
-    name: "Mango Grove Cottage",
-    desc: "Rustic heritage design sheltered under the resort's old aamrai canopy.",
-    image: mangoCottageImg,
-  },
+    name: "Heritage Garden Room",
+    desc: "Plush fabrics and cozy seating areas overlooking the resort's private gardens.",
+    image: "/roomImages/020A6099.webp",
+  }
 ];
 
 export default function Rooms() {
@@ -46,7 +43,7 @@ export default function Rooms() {
                 {/* Image Container with 9:16 Aspect Ratio */}
                 <div className="relative aspect-[9/16] w-full overflow-hidden">
                   <img
-                    src={r.image.src}
+                    src={r.image}
                     alt={r.name}
                     className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
                     loading="lazy"
