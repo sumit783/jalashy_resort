@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 
 export default function WhatsAppButton() {
-  const whatsappNumber = process.env.WHATSAPP_NUMBER;
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
   const defaultMessage = "Hello! I'd like to enquire about booking and availability at Jalashay Resort.";
   const encodedMessage = encodeURIComponent(defaultMessage);
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
