@@ -27,7 +27,7 @@ const defaultQuery = (): BookingQuery => {
   tomorrow.setHours(0, 0, 0, 0);
 
   return {
-    bookingType: "stay",
+    bookingType: "Stay",
     checkInDate: today,
     checkOutDate: tomorrow,
     guests: "2",

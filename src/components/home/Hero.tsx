@@ -169,8 +169,14 @@ export default function Hero() {
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
                 <SelectContent className="bg-popover border-border/40 text-popover-foreground">
-                  <SelectItem value="stay">Stay</SelectItem>
-                  <SelectItem value="event">Plan Event</SelectItem>
+                  <SelectItem value="Stay">Stay</SelectItem>
+                  <SelectItem value="Tour Package">Tour Package</SelectItem>
+                  <SelectItem value="Event">Event</SelectItem>
+                  <SelectItem value="Wedding">Wedding</SelectItem>
+                  <SelectItem value="Corporate Retreat">Corporate Retreat</SelectItem>
+                  <SelectItem value="Group Booking">Group Booking</SelectItem>
+                  <SelectItem value="Restaurant Booking">Restaurant Booking</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -29,7 +29,7 @@ export default function OfferDialog() {
   const handleBookNow = () => {
     setIsOpen(false);
     sessionStorage.setItem("isViewed", "true");
-    openBooking({ bookingType: "stay" });
+    openBooking({ bookingType: "Stay" });
   };
 
   // Prevent scroll when dialog is open

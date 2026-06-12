@@ -13,8 +13,11 @@ const bookingFormSchema = z.object({
   phone: z
     .string()
     .min(1, "Phone number is required")
-    .regex(/^\+?[0-9\s-]{8,15}$/, "Please enter a valid phone number")
-    .trim(),
+    .trim()
+    .refine((val) => {
+      const cleaned = val.replace(/[\s-]/g, "");
+      return /^\+91[0-9]{10}$/.test(cleaned);
+    }, "Phone number must start with +91 followed by 10 digits"),
 });
 import {
   Popover,
@@ -35,12 +38,22 @@ export default function BookingDialog() {
 
   // Local form states, initialized when dialog opens
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [bookingType, setBookingType] = useState("stay");
+  const [phone, setPhone] = useState("+91");
+  const [bookingType, setBookingType] = useState("Stay");
   const [checkInDate, setCheckInDate] = useState<Date>(new Date());
   const [checkOutDate, setCheckOutDate] = useState<Date>(new Date());
   const [guests, setGuests] = useState("2");
   const [children, setChildren] = useState("0");
+
+  const changeBookingType = (val: string) => {
+    if (val) setBookingType(val);
+  };
+  const changeGuests = (val: string) => {
+    if (val) setGuests(val);
+  };
+  const changeChildren = (val: string) => {
+    if (val) setChildren(val);
+  };
   
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,13 +61,13 @@ export default function BookingDialog() {
   // Sync context query data to local states when dialog opens
   useEffect(() => {
     if (isOpen) {
-      setBookingType(bookingQuery.bookingType);
-      setCheckInDate(bookingQuery.checkInDate);
-      setCheckOutDate(bookingQuery.checkOutDate);
-      setGuests(bookingQuery.guests);
-      setChildren(bookingQuery.children);
+      if (bookingQuery.bookingType) setBookingType(bookingQuery.bookingType);
+      if (bookingQuery.checkInDate) setCheckInDate(bookingQuery.checkInDate);
+      if (bookingQuery.checkOutDate) setCheckOutDate(bookingQuery.checkOutDate);
+      if (bookingQuery.guests) setGuests(bookingQuery.guests);
+      if (bookingQuery.children) setChildren(bookingQuery.children);
       setName("");
-      setPhone("");
+      setPhone("+91");
       setErrors({});
     }
   }, [isOpen, bookingQuery]);
@@ -93,26 +106,26 @@ export default function BookingDialog() {
 
     try {
       // Send the booking details to the backend API route
-      const response = await fetch("/api/send-email", {
+      const response = await fetch("/api/enquiries", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name,
-          phone,
-          bookingType,
-          checkInDate,
-          checkOutDate,
-          guests,
-          children,
+          phoneNo: phone,
+          category: bookingType,
+          checkIn: checkInDate.toISOString(),
+          checkOut: checkOutDate.toISOString(),
+          guests: guests === "4+" ? 4 : parseInt(guests) || 1,
+          children: children === "2+" ? 2 : parseInt(children) || 0,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || "Failed to send reservation email.");
+        throw new Error(data.error || "Failed to submit reservation enquiry.");
       }
 
       // Update global context with modified stay options
@@ -129,7 +142,7 @@ export default function BookingDialog() {
       const checkOutStr = format(checkOutDate, "MMM dd, yyyy");
       
       toast.success("Enquiry Submitted Successfully!", {
-        description: `Thank you ${name}. Our hospitality desk will call you at ${phone} to confirm your ${bookingType === "stay" ? "Stay" : "Event"} from ${checkInStr} to ${checkOutStr}.`,
+        description: `Thank you ${name}. Our hospitality desk will call you at ${phone} to confirm your ${bookingType} from ${checkInStr} to ${checkOutStr}.`,
         duration: 8000,
       });
 
@@ -160,6 +173,7 @@ export default function BookingDialog() {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-lg bg-card border border-border/40 rounded-2xl overflow-hidden shimmer-border shadow-soft z-10 flex flex-col p-6 sm:p-8"
           >
+
             {/* Close Button */}
             <button
               onClick={closeBooking}
@@ -225,13 +239,19 @@ export default function BookingDialog() {
                 <label className="text-[10px] uppercase tracking-wider text-gold font-semibold">
                   Category
                 </label>
-                <Select value={bookingType} onValueChange={setBookingType} disabled={isSubmitting}>
+                <Select value={bookingType} onValueChange={changeBookingType} disabled={isSubmitting}>
                   <SelectTrigger className="w-full bg-background border border-border/60 rounded-lg px-4 py-3 text-sm text-foreground focus:ring-0 focus:ring-offset-0 cursor-pointer">
                     <SelectValue placeholder="Select Category" />
                   </SelectTrigger>
                   <SelectContent className="bg-popover border-border/40 text-popover-foreground">
-                    <SelectItem value="stay">Stay</SelectItem>
-                    <SelectItem value="event">Plan Event</SelectItem>
+                    <SelectItem value="Stay">Stay</SelectItem>
+                    <SelectItem value="Tour Package">Tour Package</SelectItem>
+                    <SelectItem value="Event">Event</SelectItem>
+                    <SelectItem value="Wedding">Wedding</SelectItem>
+                    <SelectItem value="Corporate Retreat">Corporate Retreat</SelectItem>
+                    <SelectItem value="Group Booking">Group Booking</SelectItem>
+                    <SelectItem value="Restaurant Booking">Restaurant Booking</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -307,7 +327,7 @@ export default function BookingDialog() {
                   <label className="text-[10px] uppercase tracking-wider text-gold font-semibold">
                     Guests
                   </label>
-                  <Select value={guests} onValueChange={setGuests} disabled={isSubmitting}>
+                  <Select value={guests} onValueChange={changeGuests} disabled={isSubmitting}>
                     <SelectTrigger className="w-full bg-background border border-border/60 rounded-lg px-4 py-3 text-sm text-foreground focus:ring-0 focus:ring-offset-0 cursor-pointer">
                       <SelectValue placeholder="Guests" />
                     </SelectTrigger>
@@ -325,7 +345,7 @@ export default function BookingDialog() {
                   <label className="text-[10px] uppercase tracking-wider text-gold font-semibold">
                     Children
                   </label>
-                  <Select value={children} onValueChange={setChildren} disabled={isSubmitting}>
+                  <Select value={children} onValueChange={changeChildren} disabled={isSubmitting}>
                     <SelectTrigger className="w-full bg-background border border-border/60 rounded-lg px-4 py-3 text-sm text-foreground focus:ring-0 focus:ring-offset-0 cursor-pointer">
                       <SelectValue placeholder="Children" />
                     </SelectTrigger>
