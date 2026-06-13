@@ -26,82 +26,111 @@ function useLazyLoad() {
   return { ref, isVisible };
 }
 import { motion, AnimatePresence } from "motion/react";
-import { X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Eye, Play } from "lucide-react";
 import FadeUp from "./FadeUp";
 import Link from "next/link";
 import Image from "next/image";
 
+interface GalleryItem {
+  id: number;
+  type: "image" | "video";
+  title: string;
+  category: string;
+  image: string;
+  videoUrl?: string;
+  description: string;
+}
 
-const galleryItems = [
+const galleryItems: GalleryItem[] = [
   {
     id: 1,
+    type: "video",
     title: "Lakeside Sunset Deck",
     category: "Nature",
+    videoUrl: "/Website_01.webm",
     image: "/sliderImage/slider-5.webp",
     description: "Vibrant hues of sunset washing over the lakeside lounge chairs.",
   },
   {
     id: 2,
-    title: "Waterfront Lounge Setup",
-    category: "Leisure",
-    image: "/home_images/020A6231.webp",
-    description: "Relax by the tranquil waters with our comfortable lakeside seating options.",
+    type: "video",
+    title: "Lakeside Palms Canopy",
+    category: "Nature",
+    videoUrl: "/Website_010.webm",
+    image: "/sliderImage/slider-2.webp",
+    description: "Pristine lakeside pathways decorated with tall palms.",
   },
   {
     id: 3,
+    type: "video",
     title: "Cozy Garden Sit-out",
     category: "Leisure",
+    videoUrl: "/trees.webm",
     image: "/sliderImage/slider-3.webp",
-    description: "Shaded canopy sit-outs surrounded by lush lawns and coconut trees.",
+    description: "Shaded canopy sit-outs surrounded by lush mango groves.",
   },
   {
     id: 4,
-    title: "Resort Walkway At Dusk",
-    category: "Nature",
-    image: "/home_images/020A6018.webp",
-    description: "Warm lanterns illuminating the paved garden walkway winding through the resort.",
+    type: "video",
+    title: "Lawn-side Wedding Ceremony",
+    category: "Celebrations",
+    videoUrl: "/Website_Video_02.webm",
+    image: "/wedding-lawn.webp",
+    description: "Lawn-side wedding mandap ceremonies at sunset at Jalashay Resort.",
   },
   {
     id: 5,
-    title: "Luxury Bedroom Suite",
+    type: "video",
+    title: "Presidential Lakefront Suite",
     category: "Suites",
+    videoUrl: "/Website_04.webm",
     image: "/roomImages/020A6091.webp",
-    description: "Spacious, warm-lit bedrooms featuring premium wood craft and comfortable layout.",
+    description: "Bespoke furnishings and direct lakefront view balcony.",
   },
   {
     id: 6,
-    title: "Lakeside Brick Path",
-    category: "Nature",
-    image: "/home_images/020A6228.webp",
-    description: "A scenic walking path outlining the waterfront promenade.",
+    type: "video",
+    title: "Lakeside Premium Room",
+    category: "Suites",
+    videoUrl: "/Website_09.webm",
+    image: "/roomImages/020A6097.webp",
+    description: "Comfortable twin-bed setups designed with modern minimalist architecture.",
   },
   {
     id: 7,
-    title: "Elegant Lakeside Suite",
+    type: "video",
+    title: "Heritage Garden Suite",
     category: "Suites",
-    image: "/assets/lakeside_suite.webp",
-    description: "Panoramic lake vistas, private glass frontage, and premium finishes.",
+    videoUrl: "/Website_08.webm",
+    image: "/roomImages/020A6099.webp",
+    description: "Plush garden views from a curated wood-crafted luxury room.",
   },
   {
     id: 8,
-    title: "Premium Garden Villa",
-    category: "Suites",
-    image: "/assets/garden_villa.webp",
-    description: "Seamless indoor-outdoor living opening onto tropical manicured lawns.",
+    type: "video",
+    title: "Lakeside Dining Pavilion",
+    category: "Culinary",
+    videoUrl: "/Website_05.webm",
+    image: "/outdoor_images/020A6244.webp",
+    description: "Experience local delicacies with views over the water.",
   },
   {
     id: 9,
-    title: "Charming Mango Cottage",
-    category: "Suites",
-    image: "/assets/mango_cottage.webp",
-    description: "Heritage design sheltered under the resort's ancient canopy.",
+    type: "video",
+    title: "Infinity Pool Soirée",
+    category: "Leisure",
+    videoUrl: "/Website_03.webm",
+    image: "/sliderImage/slider-4.webp",
+    description: "Unwind at our pool deck merging with the lake horizon.",
   },
   {
     id: 10,
-    title: "Resort Facade",
-    category: "Architecture",
-    image: "/assets/hero-resort.webp",
-    description: "Classic architecture meeting nature's embrace at Jalashay Resort.",
+    type: "video",
+    title: "Lakeside Boating Deck",
+    category: "Leisure",
+    videoUrl: "/boating.webm",
+    image: "/assets/lakeside.webp",
+    description: "Calm lake waters with premium boating experiences.",
   },
 ];
 // Lazy-loading card using IntersectionObserver — image only loads when scrolled into view
@@ -132,36 +161,67 @@ function LazyGalleryCard({
         <div className="absolute inset-0 bg-card/60 animate-pulse" />
       )}
 
-      {/* Image — only rendered once in viewport */}
+      {/* Image or Video — only rendered once in viewport */}
       {isVisible && (
-        <Image
-          src={item.image}
-          alt={`${item.title} at Jalashay Resort`}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-          className="object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105 opacity-0"
-          style={{ opacity: 0 }}
-          onLoad={(e) => {
-            (e.currentTarget as HTMLImageElement).style.opacity = "1";
-            (e.currentTarget as HTMLImageElement).style.transition =
-              "opacity 0.6s ease, transform 1200ms ease-out";
-          }}
-        />
+        item.type === "video" ? (
+          <div className="relative w-full h-full overflow-hidden">
+            <video
+              src={item.videoUrl}
+              poster={item.image}
+              className="h-full w-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105"
+              muted
+              loop
+              playsInline
+              autoPlay
+              suppressHydrationWarning
+            />
+            {/* Ambient Pulse Video Indicator Badge */}
+            <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm px-2.5 py-1 text-[8px] sm:text-[9px] uppercase tracking-wider text-gold border border-gold/20 font-semibold shadow-md">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-gold"></span>
+              </span>
+              Video
+            </div>
+          </div>
+        ) : (
+          <Image
+            src={item.image}
+            alt={`${item.title} at Jalashay Resort`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+            className="object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105 opacity-0"
+            style={{ opacity: 0 }}
+            onLoad={(e) => {
+              (e.currentTarget as HTMLImageElement).style.opacity = "1";
+              (e.currentTarget as HTMLImageElement).style.transition =
+                "opacity 0.6s ease, transform 1200ms ease-out";
+            }}
+          />
+        )
       )}
 
       {/* Ambient Glow / Border Shadow Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* Hover UI Info Card */}
-      <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-        <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-medium">
+      <div className="absolute inset-x-0 bottom-0 p-3 sm:p-6 flex flex-col justify-end translate-y-2 sm:translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+        <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.3em] text-gold font-medium">
           {item.category}
         </span>
-        <h3 className="mt-1 font-display text-2xl text-foreground font-light">
+        <h3 className="mt-0.5 sm:mt-1 font-display text-sm sm:text-2xl text-foreground font-light leading-tight">
           {item.title}
         </h3>
-        <span className="mt-3 flex items-center gap-1.5 text-xs text-gold font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-          <Eye className="h-3.5 w-3.5" /> View Photo
+        <span className="mt-1.5 sm:mt-3 flex items-center gap-1.5 text-[10px] sm:text-xs text-gold font-medium tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+          {item.type === "video" ? (
+            <>
+              <Play className="h-3 sm:h-3.5 w-3 sm:w-3.5 fill-current" /> Play Video
+            </>
+          ) : (
+            <>
+              <Eye className="h-3 sm:h-3.5 w-3 sm:w-3.5" /> View Photo
+            </>
+          )}
         </span>
       </div>
     </motion.div>
@@ -238,7 +298,7 @@ export default function Gallery() {
         </FadeUp>
 
         {/* Gallery Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           <AnimatePresence initial={false}>
             {visibleItems.map((item, idx) => (
               <LazyGalleryCard
@@ -305,13 +365,24 @@ export default function Gallery() {
                 className="relative max-h-[70vh] w-full flex items-center justify-center px-12"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img
-                  src={galleryItems[activeImageIndex].image}
-                  alt={`${galleryItems[activeImageIndex].title} at Jalashay Resort`}
-                  decoding="async"
-                  loading="lazy"
-                  className="max-h-[70vh] max-w-full rounded-sm object-contain shadow-2xl select-none"
-                />
+                {galleryItems[activeImageIndex].type === "video" ? (
+                  <video
+                    src={galleryItems[activeImageIndex].videoUrl}
+                    className="max-h-[70vh] max-w-full rounded-sm shadow-2xl select-none"
+                    controls
+                    autoPlay
+                    playsInline
+                    suppressHydrationWarning
+                  />
+                ) : (
+                  <img
+                    src={galleryItems[activeImageIndex].image}
+                    alt={`${galleryItems[activeImageIndex].title} at Jalashay Resort`}
+                    decoding="async"
+                    loading="lazy"
+                    className="max-h-[70vh] max-w-full rounded-sm object-contain shadow-2xl select-none"
+                  />
+                )}
               </motion.div>
 
               {/* Next Button */}
