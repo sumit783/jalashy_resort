@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import Image from "next/image";
 import FadeUp from "./FadeUp";
 
 export default function WeddingBanner() {
@@ -18,10 +19,12 @@ export default function WeddingBanner() {
       className="relative h-[90vh] min-h-[600px] overflow-hidden"
     >
       <motion.div style={{ y }} className="absolute inset-0 h-[140%]">
-        <img
-          src={"/assets/wedding-lawn.webp"}
-          alt="Wedding mandap"
-          className="h-full w-full object-cover"
+        <Image
+          src="/assets/wedding-lawn.webp"
+          alt="Beautiful lakeside wedding mandap setup at Jalashay Resort"
+          fill
+          sizes="100vw"
+          className="object-cover"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
