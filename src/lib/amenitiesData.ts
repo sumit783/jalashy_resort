@@ -28,7 +28,7 @@ export const amenitiesData: Record<string, Omit<AmenityDetail, "icon">> = {
     ],
     metaLabel: "Capacity",
     metaVal: "49 Rooms (100+ guests)",
-    galleryImages: ["/assets/lakeside_suite.png", "/assets/garden_villa.png"],
+    galleryImages: ["/assets/lakeside_suite.webp", "/assets/garden_villa.webp"],
   },
   "open-air-lawns": {
     slug: "open-air-lawns",

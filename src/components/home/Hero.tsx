@@ -76,7 +76,7 @@ export default function Hero() {
       className="relative min-h-screen md:h-screen md:min-h-[640px] w-full overflow-hidden flex items-center justify-center"
     >
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="popLayout" initial={false}>
           <motion.div
             key={currentImageIndex}
             initial={{ x: "100%", opacity: 0 }}

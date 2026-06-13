@@ -77,7 +77,7 @@ export default function OfferDialog() {
             {/* Image Container with aspect ratio */}
             <div className="relative aspect-[16/10] w-full overflow-hidden">
               <Image
-                src="/assets/lakeside_suite.png"
+                src="/assets/lakeside_suite.webp"
                 alt="Premium Lakeside Suite room setup at Jalashay Resort special offer overlay"
                 fill
                 sizes="(max-width: 440px) 100vw, 400px"
