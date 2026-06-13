@@ -19,13 +19,15 @@ export default function WeddingBanner() {
       className="relative h-[90vh] min-h-[600px] overflow-hidden"
     >
       <motion.div style={{ y }} className="absolute inset-0 h-[140%]">
-        <Image
-          src="/assets/wedding-lawn.webp"
-          alt="Beautiful lakeside wedding mandap setup at Jalashay Resort"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          loading="lazy"
+        <video
+          src="/Website_01.webm"
+          poster="/assets/wedding-lawn.webp"
+          autoPlay
+          loop
+          muted
+          playsInline
+          suppressHydrationWarning
+          className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
       </motion.div>

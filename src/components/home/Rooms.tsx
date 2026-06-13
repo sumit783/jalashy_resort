@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import FadeUp from "./FadeUp";
 
 const rooms = [
@@ -8,16 +7,19 @@ const rooms = [
     name: "Presidential Lakefront Suite",
     desc: "Panoramic lake vistas, private glass balcony, and bespoke marble fittings.",
     image: "/roomImages/020A6091.webp",
+    video: "/Website_04.webm",
   },
   {
     name: "Lakeside Premium Suite",
     desc: "Elegantly furnished with rustic teak wood and direct lake frontage sit-outs.",
     image: "/roomImages/020A6097.webp",
+    video: "/Website_09.webm",
   },
   {
     name: "Heritage Garden Room",
     desc: "Plush fabrics and cozy seating areas overlooking the resort's private gardens.",
     image: "/roomImages/020A6099.webp",
+    video: "/Website_08.webm",
   }
 ];
 
@@ -41,15 +43,17 @@ export default function Rooms() {
           {rooms.map((r, i) => (
             <FadeUp key={r.name} delay={i * 0.12}>
               <div className="group relative flex flex-col overflow-hidden rounded-sm border border-border/40 bg-card/40 shimmer-border">
-                {/* Image Container with 9:16 Aspect Ratio */}
-                <div className="relative aspect-[9/16] w-full overflow-hidden">
-                  <Image
-                    src={r.image}
-                    alt={`${r.name} luxury guest suite bedroom at Jalashay Resort`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
-                    loading="lazy"
+                {/* Video Container with 9:16 Aspect Ratio */}
+                <div className="relative aspect-[9/16] w-full overflow-hidden bg-black">
+                  <video
+                    src={r.video}
+                    poster={r.image}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    suppressHydrationWarning
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
                   />
                   {/* Subtle Dark Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent transition-opacity duration-500 group-hover:opacity-95" />

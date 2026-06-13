@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import Image from "next/image";
 import FadeUp from "./FadeUp";
 
 export default function About() {
@@ -50,14 +49,15 @@ export default function About() {
               style={{ y: imgY }}
               className="absolute inset-0 h-[120%] w-full"
             >
-              <Image
-                src="/wedding-lawn.webp"
-                alt="Lawn-side wedding mandap ceremonies at sunset at Jalashay Resort"
-                fill
-                sizes="(max-width: 768px) 100vw, 500px"
-                className="object-cover"
-                loading="lazy"
-                unoptimized
+              <video
+                src="/Website_Video_02.webm"
+                poster="/wedding-lawn.webp"
+                autoPlay
+                loop
+                muted
+                playsInline
+                suppressHydrationWarning
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />

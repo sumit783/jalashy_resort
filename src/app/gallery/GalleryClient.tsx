@@ -22,91 +22,101 @@ interface GalleryItem {
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    type: "image",
+    type: "video",
     title: "Lakeside Serenity",
     category: "Nature",
     image: "/assets/lakeside.webp",
+    videoUrl: "/Website_01.webm",
     description: "Witness pristine mornings where the lake water reflects the golden horizon.",
     aspect: "aspect-[4/3]",
   },
   {
     id: 2,
-    type: "image",
+    type: "video",
     title: "Infinity Waters",
     category: "Leisure",
     image: "/assets/pool.webp",
+    videoUrl: "/Website_03.webm",
     description: "Unwind at our sparkling infinity pool that merges with the tree lines.",
     aspect: "aspect-square",
   },
   {
     id: 3,
-    type: "image",
+    type: "video",
     title: "Mango Grove Canopy",
     category: "Nature",
     image: "/assets/aamrai.webp",
+    videoUrl: "/trees.webm",
     description: "A shady sanctuary cooled by decades-old mango trees (Aamrai) for peaceful walks.",
     aspect: "aspect-[3/4]",
   },
   {
     id: 4,
-    type: "image",
+    type: "video",
     title: "The Dining Pavilion",
     category: "Culinary",
     image: "/assets/restaurant.webp",
+    videoUrl: "/Website_05.webm",
     description: "Indulge in curated local delicacies served with panoramic views of the water.",
     aspect: "aspect-[4/3]",
   },
   {
     id: 5,
-    type: "image",
+    type: "video",
     title: "Grand Sunset Lawn",
     category: "Celebrations",
     image: "/assets/wedding-lawn.webp",
+    videoUrl: "/Website_Video_02.webm",
     description: "Our premier lakefront wedding lawn, set up for a celebration of 100-200 guests.",
     aspect: "aspect-[3/2]",
   },
   {
     id: 6,
-    type: "image",
+    type: "video",
     title: "Plush Guest Room",
     category: "Suites",
     image: "/assets/room.webp",
+    videoUrl: "/Website_04.webm",
     description: "Elegantly styled accommodations designed to ensure maximum comfort for your wedding guests.",
     aspect: "aspect-[3/4]",
   },
   {
     id: 7,
-    type: "image",
+    type: "video",
     title: "Lakeside Suite",
     category: "Suites",
     image: "/assets/lakeside_suite.webp",
+    videoUrl: "/Website_09.webm",
     description: "Wake up to endless water views with our premium, glass-fronted suite design.",
     aspect: "aspect-[4/3]",
   },
   {
     id: 8,
-    type: "image",
+    type: "video",
     title: "Garden Villa",
     category: "Suites",
     image: "/assets/garden_villa.webp",
+    videoUrl: "/Website_08.webm",
     description: "Opening directly onto beautifully landscaped lawns for a perfect indoor-outdoor feel.",
     aspect: "aspect-[3/2]",
   },
   {
     id: 9,
-    type: "image",
+    type: "video",
     title: "Mango Grove Cottage",
     category: "Suites",
     image: "/assets/mango_cottage.webp",
+    videoUrl: "/Website_010.webm",
     description: "A heritage-style private cottage nestled deep in our shade-giving aamrai grove.",
     aspect: "aspect-[4/3]",
   },
   {
     id: 10,
-    type: "image",
+    type: "video",
     title: "Main Resort Entrance",
     category: "Architecture",
     image: "/assets/hero-resort.webp",
+    videoUrl: "/boating.webm",
     description: "Traditional craftsmanship meets contemporary luxury at the main entrance.",
     aspect: "aspect-[16/9]",
   },
@@ -441,6 +451,7 @@ export default function GalleryClient() {
                         loop
                         playsInline
                         autoPlay
+                        suppressHydrationWarning
                       />
                       <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm px-3 py-1 text-[9px] uppercase tracking-wider text-gold border border-gold/20 font-semibold shadow-md">
                         <span className="relative flex h-1.5 w-1.5">
@@ -538,6 +549,7 @@ export default function GalleryClient() {
                     controls
                     autoPlay
                     playsInline
+                    suppressHydrationWarning
                   />
                 ) : (
                   <img
