@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import FadeUp from "./FadeUp";
+import LazyVideo from "../ui/LazyVideo";
 
 export default function About() {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,14 +50,8 @@ export default function About() {
               style={{ y: imgY }}
               className="absolute inset-0 h-[120%] w-full"
             >
-              <video
+              <LazyVideo
                 src="/Website_Video_02.webm"
-                poster="/wedding-lawn.webp"
-                autoPlay
-                loop
-                muted
-                playsInline
-                suppressHydrationWarning
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </motion.div>

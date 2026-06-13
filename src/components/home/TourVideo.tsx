@@ -31,6 +31,7 @@ export default function TourVideo() {
         muted
         playsInline
         loop
+        preload="metadata"
         suppressHydrationWarning
       />
       {/* Top and Bottom Gradient Blends to blend with the rest of the dark sections */}

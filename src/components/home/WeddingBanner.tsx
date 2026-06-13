@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import Image from "next/image";
 import FadeUp from "./FadeUp";
+import LazyVideo from "../ui/LazyVideo";
 
 export default function WeddingBanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -19,14 +20,8 @@ export default function WeddingBanner() {
       className="relative h-[90vh] min-h-[600px] overflow-hidden"
     >
       <motion.div style={{ y }} className="absolute inset-0 h-[140%]">
-        <video
+        <LazyVideo
           src="/Website_01.webm"
-          poster="/assets/wedding-lawn.webp"
-          autoPlay
-          loop
-          muted
-          playsInline
-          suppressHydrationWarning
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />

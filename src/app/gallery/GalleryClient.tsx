@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FadeUp from "@/components/home/FadeUp";
 import { useBooking } from "@/context/BookingContext";
+import LazyVideo from "@/components/ui/LazyVideo";
 
 interface GalleryItem {
   id: number;
@@ -444,14 +445,9 @@ export default function GalleryClient() {
                 <div className={`relative w-full ${item.aspect}`}>
                   {item.type === "video" ? (
                     <div className="relative w-full h-full overflow-hidden">
-                      <video
+                      <LazyVideo
                         src={item.videoUrl}
                         className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-                        muted
-                        loop
-                        playsInline
-                        autoPlay
-                        suppressHydrationWarning
                       />
                       <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm px-3 py-1 text-[9px] uppercase tracking-wider text-gold border border-gold/20 font-semibold shadow-md">
                         <span className="relative flex h-1.5 w-1.5">

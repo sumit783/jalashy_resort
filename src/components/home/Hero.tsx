@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import LazyVideo from "../ui/LazyVideo";
 import {
   Popover,
   PopoverContent,
@@ -59,14 +60,8 @@ export default function Hero() {
       className="relative min-h-screen md:h-screen md:min-h-[640px] w-full overflow-hidden flex items-center justify-center"
     >
       <motion.div style={{ y, scale }} className="absolute inset-0 bg-black">
-        <video
+        <LazyVideo
           src="/Website_01.webm"
-          poster="/sliderImage/slider-3.webp"
-          autoPlay
-          loop
-          muted
-          playsInline
-          suppressHydrationWarning
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50 z-10" />
