@@ -29,6 +29,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import FadeUp from "./FadeUp";
 import Link from "next/link";
+import Image from "next/image";
 
 
 const galleryItems = [
@@ -36,21 +37,21 @@ const galleryItems = [
     id: 1,
     title: "Lakeside Sunset Deck",
     category: "Nature",
-    image: "/home_images/020A5924.webp",
+    image: "/sliderImage/slider-5.webp",
     description: "Vibrant hues of sunset washing over the lakeside lounge chairs.",
   },
   {
     id: 2,
     title: "Waterfront Lounge Setup",
     category: "Leisure",
-    image: "/home_images/020A5930.webp",
+    image: "/home_images/020A6231.webp",
     description: "Relax by the tranquil waters with our comfortable lakeside seating options.",
   },
   {
     id: 3,
     title: "Cozy Garden Sit-out",
     category: "Leisure",
-    image: "/home_images/020A5959.webp",
+    image: "/sliderImage/slider-3.webp",
     description: "Shaded canopy sit-outs surrounded by lush lawns and coconut trees.",
   },
   {
@@ -64,7 +65,7 @@ const galleryItems = [
     id: 5,
     title: "Luxury Bedroom Suite",
     category: "Suites",
-    image: "/home_images/020A6056.webp",
+    image: "/roomImages/020A6091.webp",
     description: "Spacious, warm-lit bedrooms featuring premium wood craft and comfortable layout.",
   },
   {
@@ -103,7 +104,6 @@ const galleryItems = [
     description: "Classic architecture meeting nature's embrace at Jalashay Resort.",
   },
 ];
-
 // Lazy-loading card using IntersectionObserver — image only loads when scrolled into view
 function LazyGalleryCard({
   item,
@@ -134,11 +134,13 @@ function LazyGalleryCard({
 
       {/* Image — only rendered once in viewport */}
       {isVisible && (
-        <img
+        <Image
           src={item.image}
-          alt={item.title}
-          className="h-full w-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105 opacity-0"
-          loading="eager"
+          alt={`${item.title} at Jalashay Resort`}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+          className="object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105 opacity-0"
+          style={{ opacity: 0 }}
           onLoad={(e) => {
             (e.currentTarget as HTMLImageElement).style.opacity = "1";
             (e.currentTarget as HTMLImageElement).style.transition =
@@ -305,7 +307,9 @@ export default function Gallery() {
               >
                 <img
                   src={galleryItems[activeImageIndex].image}
-                  alt={galleryItems[activeImageIndex].title}
+                  alt={`${galleryItems[activeImageIndex].title} at Jalashay Resort`}
+                  decoding="async"
+                  loading="lazy"
                   className="max-h-[70vh] max-w-full rounded-sm object-contain shadow-2xl select-none"
                 />
               </motion.div>

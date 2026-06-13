@@ -19,21 +19,42 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://jalashayresort.com"),
   title: "Jalashay Resort — Lakeside Weddings & Premium Stays",
   description:
-    "Jalashay Resort offers 26 rooms, 3 lawns, swimming pool, aamrai, lakeside views and a restaurant — ideal for 100–200 pax weddings and serene getaways.",
+    "Jalashay Resort offers 49 luxury rooms and suites, 3 open-air wedding lawns, swimming pool, aamrai mango grove, lakeside views and dining — ideal for lakeside events.",
   authors: [{ name: "Jalashay Resort" }],
   openGraph: {
-    title: "Jalashay Resort — Lakeside Weddings & Stays",
+    title: "Jalashay Resort — Lakeside Weddings & Premium Stays",
     description:
-      "A premium lakeside resort for unforgettable weddings and serene getaways.",
+      "A premium lakeside resort for unforgettable weddings, events, and serene weekend getaways.",
     type: "website",
+    siteName: "Jalashay Resort",
+    images: [
+      {
+        url: "/assets/hero-resort.webp",
+        width: 1200,
+        height: 675,
+        alt: "Jalashay Resort Entrance View",
+      },
+      {
+        url: "/Jalashay_Logo.webp",
+        width: 800,
+        height: 800,
+        alt: "Jalashay Resort Logo",
+      },
+    ],
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
+    title: "Jalashay Resort — Lakeside Weddings & Premium Stays",
+    description:
+      "A premium lakeside resort for unforgettable weddings, events, and serene weekend getaways.",
+    images: ["/assets/hero-resort.webp"],
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: "/Jalashay_Logo.webp",
   },
 };
 

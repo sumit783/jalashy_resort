@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import FadeUp from "./FadeUp";
 
 const rooms = [
@@ -42,10 +43,12 @@ export default function Rooms() {
               <div className="group relative flex flex-col overflow-hidden rounded-sm border border-border/40 bg-card/40 shimmer-border">
                 {/* Image Container with 9:16 Aspect Ratio */}
                 <div className="relative aspect-[9/16] w-full overflow-hidden">
-                  <img
+                  <Image
                     src={r.image}
-                    alt={r.name}
-                    className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
+                    alt={`${r.name} luxury guest suite bedroom at Jalashay Resort`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
                     loading="lazy"
                   />
                   {/* Subtle Dark Overlay */}

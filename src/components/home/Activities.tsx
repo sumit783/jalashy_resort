@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Trophy, Sailboat } from "lucide-react";
 import FadeUp from "./FadeUp";
 
@@ -8,10 +9,12 @@ export default function Activities() {
       <div className="mx-auto grid max-w-6xl gap-16 px-6 md:grid-cols-2 md:items-center">
         <FadeUp delay={0.1}>
           <div className="relative aspect-square overflow-hidden rounded-sm shimmer-border">
-            <img
-              src={"/assets/lakeside.webp"}
-              alt="Lakeside view at sunset"
-              className="h-full w-full object-cover"
+            <Image
+              src="/assets/lakeside.webp"
+              alt="Lakeside waterfront view of the lawns at sunset at Jalashay Resort"
+              fill
+              sizes="(max-width: 768px) 100vw, 500px"
+              className="object-cover"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />

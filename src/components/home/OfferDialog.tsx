@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Gift } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
@@ -75,10 +76,13 @@ export default function OfferDialog() {
 
             {/* Image Container with aspect ratio */}
             <div className="relative aspect-[16/10] w-full overflow-hidden">
-              <img
-                src={"/assets/lakeside_suite.png"}
-                alt="Luxury Lakeside Suite"
-                className="h-full w-full object-cover"
+              <Image
+                src="/assets/lakeside_suite.png"
+                alt="Premium Lakeside Suite room setup at Jalashay Resort special offer overlay"
+                fill
+                sizes="(max-width: 440px) 100vw, 400px"
+                className="object-cover"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
               {/* Badge */}

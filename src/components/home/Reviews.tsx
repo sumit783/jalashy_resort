@@ -166,7 +166,11 @@ export default function Reviews() {
                 {review.avatarUrl ? (
                   <img
                     src={review.avatarUrl}
-                    alt={review.name}
+                    alt={`${review.name} Google Reviewer Profile Avatar`}
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    decoding="async"
                     className="w-10 h-10 rounded-full object-cover border border-gold/30 shadow-md"
                     referrerPolicy="no-referrer"
                   />
