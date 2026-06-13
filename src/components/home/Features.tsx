@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import FadeUp from "./FadeUp";
 import Link from "next/link";
+import Image from "next/image";
 
 type Feature = {
   icon: typeof BedDouble;
@@ -63,7 +64,7 @@ const features: Feature[] = [
     icon: Sailboat,
     title: "Lakeside & Boating",
     desc: "Serene lake frontage today, with boating experiences arriving soon for our guests.",
-    image: "/lakeside.jpg",
+    image: "/assets/lakeside.webp",
     meta: "Boating · coming soon",
     slug: "lakeside-boating",
   },
@@ -95,10 +96,12 @@ export default function Features() {
                   className="group relative flex h-full flex-col overflow-hidden rounded-sm border border-border/60 bg-card/60 shimmer-border"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <motion.img
+                    <Image
                       src={f.image}
-                      alt={f.title}
-                      className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110"
+                      alt={`${f.title} facilities at Jalashay Resort`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />

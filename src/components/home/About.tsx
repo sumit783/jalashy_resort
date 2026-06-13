@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import Image from "next/image";
 import FadeUp from "./FadeUp";
 
 export default function About() {
@@ -45,15 +46,20 @@ export default function About() {
 
         <FadeUp delay={0.2}>
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm shimmer-border">
-            <motion.img
+            <motion.div
               style={{ y: imgY }}
-              src={"/wedding-lawn.jpg"}
-              alt="Wedding mandap on lawn at sunset"
-              className="absolute inset-0 h-[120%] w-full object-cover"
-              loading="lazy"
-              width={1600}
-              height={1024}
-            />
+              className="absolute inset-0 h-[120%] w-full"
+            >
+              <Image
+                src="/wedding-lawn.webp"
+                alt="Lawn-side wedding mandap ceremonies at sunset at Jalashay Resort"
+                fill
+                sizes="(max-width: 768px) 100vw, 500px"
+                className="object-cover"
+                loading="lazy"
+                unoptimized
+              />
+            </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <div className="text-[10px] uppercase tracking-[0.4em] text-gold">

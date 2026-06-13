@@ -3,6 +3,12 @@ import { blogPosts } from "@/lib/blogData";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: {

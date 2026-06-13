@@ -1,6 +1,13 @@
-import AmenityDetailClient, { amenitiesData } from "./AmenityDetailClient";
+import AmenityDetailClient from "./AmenityDetailClient";
+import { amenitiesData } from "@/lib/amenitiesData";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+
+export async function generateStaticParams() {
+  return Object.keys(amenitiesData).map((slug) => ({
+    slug,
+  }));
+}
 
 export async function generateMetadata({
   params,
