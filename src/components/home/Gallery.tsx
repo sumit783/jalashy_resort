@@ -30,6 +30,7 @@ import { X, ChevronLeft, ChevronRight, Eye, Play } from "lucide-react";
 import FadeUp from "./FadeUp";
 import Link from "next/link";
 import Image from "next/image";
+import LazyVideo from "../ui/LazyVideo";
 
 interface GalleryItem {
   id: number;
@@ -165,15 +166,9 @@ function LazyGalleryCard({
       {isVisible && (
         item.type === "video" ? (
           <div className="relative w-full h-full overflow-hidden">
-            <video
+            <LazyVideo
               src={item.videoUrl}
-              poster={item.image}
               className="h-full w-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-105"
-              muted
-              loop
-              playsInline
-              autoPlay
-              suppressHydrationWarning
             />
             {/* Ambient Pulse Video Indicator Badge */}
             <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm px-2.5 py-1 text-[8px] sm:text-[9px] uppercase tracking-wider text-gold border border-gold/20 font-semibold shadow-md">

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useState } from "react";
 import {
   BedDouble,
   Sparkles,
@@ -12,6 +13,7 @@ import {
 import FadeUp from "./FadeUp";
 import Link from "next/link";
 import Image from "next/image";
+import LazyVideo from "../ui/LazyVideo";
 
 type Feature = {
   icon: typeof BedDouble;
@@ -104,14 +106,8 @@ export default function Features() {
                 >
                   <div className="relative aspect-[4/3] overflow-hidden">
                     {f.video ? (
-                      <video
+                      <LazyVideo
                         src={f.video}
-                        poster={f.image}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        suppressHydrationWarning
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110"
                       />
                     ) : (

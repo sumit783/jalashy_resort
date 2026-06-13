@@ -1,6 +1,7 @@
 "use client";
 
 import FadeUp from "./FadeUp";
+import LazyVideo from "../ui/LazyVideo";
 
 const rooms = [
   {
@@ -45,14 +46,8 @@ export default function Rooms() {
               <div className="group relative flex flex-col overflow-hidden rounded-sm border border-border/40 bg-card/40 shimmer-border">
                 {/* Video Container with 9:16 Aspect Ratio */}
                 <div className="relative aspect-[9/16] w-full overflow-hidden bg-black">
-                  <video
+                  <LazyVideo
                     src={r.video}
-                    poster={r.image}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    suppressHydrationWarning
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-110"
                   />
                   {/* Subtle Dark Overlay */}
