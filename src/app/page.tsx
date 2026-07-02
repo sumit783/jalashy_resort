@@ -1,35 +1,40 @@
-import Nav from "@/components/home/Nav";
-import Hero from "@/components/home/Hero";
-import StatsBar from "@/components/home/StatsBar";
-import About from "@/components/home/About";
-import Gallery from "@/components/home/Gallery";
-import Rooms from "@/components/home/Rooms";
-import Features from "@/components/home/Features";
-import TourVideo from "@/components/home/TourVideo";
-import Reviews from "@/components/home/Reviews";
-import WeddingBanner from "@/components/home/WeddingBanner";
-import Activities from "@/components/home/Activities";
-import Contact from "@/components/home/Contact";
-import Footer from "@/components/home/Footer";
-import OfferDialog from "@/components/home/OfferDialog";
+"use client";
 
-export default function Home() {
+import {
+  Hero,
+  Intro,
+  ParallaxBand,
+  Experiences,
+  Stays,
+  Dining,
+  Amenities,
+  Gallery,
+  Testimonials,
+  CTA,
+  Footer,
+} from "@/components/home";
+import backwater from "@/assets/sliderImage/slider-5.webp";
+
+export default function Page() {
   return (
-    <main className="relative">
-      <OfferDialog />
-      <Nav />
+    <div className="bg-background">
       <Hero />
-      <StatsBar />
-      <About />
+      <Intro />
+      <ParallaxBand
+        image={backwater.src}
+        kicker="— A Place Apart"
+        title="Silence, at last."
+        sub="Twelve acres by the lake. No cars. No clocks."
+      />
+      <Experiences />
+      <Stays />
+      <Dining />
+      <Amenities />
       <Gallery />
-      <Rooms />
-      <Features />
-      {/* <TourVideo /> */}
-      <Reviews />
-      <WeddingBanner />
-      <Activities />
-      <Contact />
+      <Testimonials />
+      <CTA />
       <Footer />
-    </main>
+    </div>
   );
 }
+

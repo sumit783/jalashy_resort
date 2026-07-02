@@ -1,0 +1,12 @@
+export { Nav } from "./nav";
+export { Hero } from "./hero";
+export { Intro } from "./intro";
+export { ParallaxBand } from "./parallax-band";
+export { Experiences } from "./experiences";
+export { Stays } from "./stays";
+export { Dining } from "./dining";
+export { Amenities } from "./amenities";
+export { Gallery } from "./gallery";
+export { Testimonials } from "./testimonials";
+export { CTA } from "./cta";
+export { Footer } from "./footer";

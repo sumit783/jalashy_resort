@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Marcellus&family=Raleway:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @source "../src";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -12,8 +14,6 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -22,148 +22,88 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-gold: var(--gold);
-  --color-gold-soft: var(--gold-soft);
-  --color-gold-deep: var(--gold-deep);
-  --font-display: "Cormorant Garamond", serif;
-  --font-sans: "Inter", sans-serif;
+  --color-cream: var(--cream);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 }
 
 :root {
-  --radius: 0.5rem;
-  /* Deep charcoal with warm undertones */
-  --background: oklch(0.16 0.012 60);
-  --foreground: oklch(0.96 0.012 80);
-  --card: oklch(0.2 0.014 60);
-  --card-foreground: oklch(0.96 0.012 80);
-  --popover: oklch(0.18 0.012 60);
-  --popover-foreground: oklch(0.96 0.012 80);
-  /* Golden primary */
-  --primary: oklch(0.78 0.13 78);
-  --primary-foreground: oklch(0.18 0.012 60);
-  --secondary: oklch(0.24 0.014 60);
-  --secondary-foreground: oklch(0.96 0.012 80);
-  --muted: oklch(0.22 0.012 60);
-  --muted-foreground: oklch(0.72 0.02 80);
-  --accent: oklch(0.78 0.13 78);
-  --accent-foreground: oklch(0.18 0.012 60);
-  --destructive: oklch(0.6 0.22 27);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.3 0.02 70 / 0.6);
-  --input: oklch(0.3 0.02 70);
-  --ring: oklch(0.78 0.13 78);
+  --radius: 9999px;
+  /* warm cream light theme with gold accents */
+  --background: oklch(0.98 0.02 85);          /* soft cream */
+  --foreground: oklch(0.24 0.03 45);          /* deep espresso */
+  --card: oklch(0.995 0.01 85);
+  --card-foreground: oklch(0.24 0.03 45);
+  --primary: oklch(0.30 0.04 45);             /* dark brown */
+  --primary-foreground: oklch(0.98 0.02 85);
+  --secondary: oklch(0.95 0.03 80);
+  --secondary-foreground: oklch(0.28 0.03 45);
+  --muted: oklch(0.94 0.02 80);
+  --muted-foreground: oklch(0.5 0.03 55);
+  --accent: oklch(0.74 0.16 70);              /* warm gold/amber */
+  --accent-foreground: oklch(0.22 0.03 45);
+  --gold: oklch(0.74 0.16 70);
+  --cream: oklch(0.98 0.02 85);
+  --border: oklch(0.9 0.02 75);
+  --input: oklch(0.9 0.02 75);
+  --ring: oklch(0.74 0.16 70);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
 
-  /* Gold palette */
-  --gold: oklch(0.82 0.14 82);
-  --gold-soft: oklch(0.88 0.09 85);
-  --gold-deep: oklch(0.62 0.13 70);
+  --font-display: "Marcellus", serif;
+  --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cardo", Georgia, serif;
 
-  /* Gradients & shadows */
-  --gradient-gold: linear-gradient(
-    135deg,
-    oklch(0.88 0.1 85),
-    oklch(0.72 0.15 72)
-  );
-  --gradient-radial-gold: radial-gradient(
-    circle at 50% 0%,
-    oklch(0.78 0.13 78 / 0.18),
-    transparent 60%
-  );
-  --shadow-gold: 0 20px 60px -20px oklch(0.78 0.13 78 / 0.35);
-  --shadow-soft: 0 30px 80px -30px oklch(0 0 0 / 0.6);
+  --shadow-soft: 0 20px 60px -30px oklch(0.30 0.04 45 / 0.25);
+  --gradient-gold: linear-gradient(135deg, oklch(0.78 0.15 75), oklch(0.68 0.17 60));
+  --gradient-fade: linear-gradient(180deg, transparent, oklch(0.98 0.02 85 / 0.9) 70%, oklch(0.98 0.02 85));
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
-  html {
-    scroll-behavior: smooth;
-  }
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(
-        ellipse at top,
-        oklch(0.78 0.13 78 / 0.08),
-        transparent 50%
-      ),
-      radial-gradient(
-        ellipse at bottom,
-        oklch(0.62 0.13 70 / 0.05),
-        transparent 50%
-      );
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  .font-display {
-    font-family: var(--font-display);
-    letter-spacing: -0.01em;
-  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; }
+  em { font-style: italic; color: var(--gold); font-family: var(--font-serif); }
 }
 
-@utility text-gold-gradient {
-  background: var(--gradient-gold);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+@utility parallax {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-@utility gold-divider {
-  height: 1px;
-  width: 80px;
-  background: var(--gradient-gold);
-  display: inline-block;
+@utility text-balance {
+  text-wrap: balance;
 }
 
-@utility shimmer-border {
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      oklch(0.88 0.1 85 / 0.6),
-      transparent 40%,
-      oklch(0.72 0.15 72 / 0.4)
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
+@utility btn-gold {
+  background-image: var(--gradient-gold);
+  color: oklch(0.22 0.03 45);
+  border-radius: 9999px;
+  padding: 0.85rem 1.75rem;
+  font-weight: 500;
+  transition: transform .3s ease, box-shadow .3s ease;
+  box-shadow: 0 10px 30px -12px oklch(0.74 0.16 70 / 0.5);
+}
+@utility btn-gold-hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px -12px oklch(0.74 0.16 70 / 0.65);
 }
 
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 40s linear infinite;
-}
-
-.pause-hover:hover {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
+@media (max-width: 768px) {
+  .parallax { background-attachment: scroll; }
 }

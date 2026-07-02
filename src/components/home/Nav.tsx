@@ -1,188 +1,184 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { Menu } from "lucide-react";
-import { useBooking } from "@/context/BookingContext";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-  SheetTitle,
-  SheetDescription,
-} from "@/components/ui/sheet";
+import Image from "next/image";
+import { useBookingModal } from "@/context/BookingModalContext";
 
-export default function Nav() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { openBooking } = useBooking();
+export function Nav() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { openBookingModal } = useBookingModal();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 120);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (!isHome) return;
+    const on = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", on, { passive: true });
+    // Reset scroll state on mount/pathname change
+    setScrolled(window.scrollY > 40);
+    return () => window.removeEventListener("scroll", on);
+  }, [isHome, pathname]);
+
+  const alwaysScrolled = !isHome;
+  const isLight = scrolled || alwaysScrolled;
+
+  const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    if (isHome) {
+      e.preventDefault();
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        window.history.pushState(null, "", `#${targetId}`);
+      }
+    }
+  };
 
   return (
-    <motion.header
-      animate={
-        isScrolled
-          ? {
-              backgroundColor: "rgba(20, 20, 20, 0.85)",
-              backdropFilter: "blur(12px)",
-              borderBottomColor: "rgba(255, 255, 255, 0.1)",
-              boxShadow: "0 30px 80px -30px rgba(0, 0, 0, 0.6)",
-            }
-          : {
-              backgroundColor: "rgba(0, 0, 0, 0)",
-              backdropFilter: "blur(0px)",
-              borderBottomColor: "rgba(0, 0, 0, 0)",
-              boxShadow: "none",
-            }
-      }
-      transition={{ duration: 0.4 }}
-      className="fixed inset-x-0 top-0 z-50 border-b"
-    >
-      <div className="mx-auto max-w-6xl px-6 py-4 grid grid-cols-3 items-center">
-        {/* Left Side: Drawer Menu Trigger */}
-        <div className="flex justify-start">
-          <motion.div
-            animate={{ opacity: isScrolled ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ pointerEvents: isScrolled ? "auto" : "none" }}
+    <header className="fixed top-4 inset-x-0 z-50 transition-all duration-500">
+      <div
+        className={`max-w-6xl mx-auto flex items-center justify-between px-6 h-14 rounded-full transition-all duration-500 ${isLight || menuOpen ? "bg-background/90 backdrop-blur-md border border-border/60 shadow-[var(--shadow-soft)]" : "bg-background/20 backdrop-blur-sm border border-white/20"}`}
+      >
+        <Link href="/" className="flex items-center gap-2 z-50">
+          <Image
+            src="/Jalashay_Logo.webp"
+            alt="Jalashay Resort"
+            width={100}
+            height={36}
+            style={{ width: "auto" }}
+            className={`h-9 w-auto object-contain transition-all duration-300 ${!isLight && !menuOpen ? "brightness-0 invert" : ""}`}
+            priority
+          />
+        </Link>
+        <nav
+          className={`hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] font-medium transition-colors ${isLight ? "text-foreground/80" : "text-white/90"}`}
+        >
+          <Link
+            href="/#stays"
+            onClick={(e) => handleScrollClick(e, "stays")}
+            className="relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-[color:var(--gold)] after:transition-transform after:duration-300 hover:after:scale-x-100 transition"
           >
-            <Sheet>
-              <SheetTrigger asChild>
-                <button className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gold/20 text-foreground transition-colors hover:bg-gold/5 focus:outline-none">
-                  <Menu className="h-5 w-5 text-gold" strokeWidth={1.5} />
-                  <span className="sr-only">Open Menu</span>
-                </button>
-              </SheetTrigger>
-              <SheetContent
-                side="left"
-                className="w-[300px] border-r border-border/10 bg-background/95 backdrop-blur-md p-8 flex flex-col justify-between"
-              >
-                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                <SheetDescription className="sr-only">
-                  Quick links to different sections of the resort website and
-                  booking details.
-                </SheetDescription>
-                <div className="flex flex-col">
-                  <div className="flex items-center justify-between pb-6 border-b border-border/10">
-                    <a
-                      href="#"
-                      className="font-display text-2xl tracking-wide text-foreground"
-                    >
-                      Jalashay<span className="text-gold">.</span>
-                    </a>
-                  </div>
-                  <nav className="mt-14 flex flex-col gap-8">
-                    <SheetClose asChild>
-                      <a
-                        href="#"
-                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
-                      >
-                        Home
-                      </a>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <a
-                        href="#experience"
-                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
-                      >
-                        Resort
-                      </a>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <a
-                        href="#amenities"
-                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
-                      >
-                        Amenities
-                      </a>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <a
-                        href="#contact"
-                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
-                      >
-                        Contact
-                      </a>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link
-                        href="/gallery"
-                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
-                      >
-                        Gallery
-                      </Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link
-                        href="/blog"
-                        className="font-display text-3xl font-light text-foreground hover:text-gold transition-colors"
-                      >
-                        Journal
-                      </Link>
-                    </SheetClose>
-                  </nav>
-                </div>
-
-                <div className="border-t border-border/10 pt-6">
-                  <div className="text-[10px] uppercase tracking-[0.25em] text-gold">
-                    Hospitality & Booking
-                  </div>
-                  <div className="mt-3 font-display text-xl text-foreground">
-                    stay@jalashay.com
-                  </div>
-                  <div className="mt-1 text-xs text-muted-foreground">
-                    +91 00000 00000
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </motion.div>
+            Stays
+          </Link>
+          <Link
+            href="/#experiences"
+            onClick={(e) => handleScrollClick(e, "experiences")}
+            className="relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-[color:var(--gold)] after:transition-transform after:duration-300 hover:after:scale-x-100 transition"
+          >
+            Experiences
+          </Link>
+          <Link
+            href="/#dining"
+            onClick={(e) => handleScrollClick(e, "dining")}
+            className="relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-[color:var(--gold)] after:transition-transform after:duration-300 hover:after:scale-x-100 transition"
+          >
+            Dining
+          </Link>
+          <Link
+            href="/#gallery"
+            onClick={(e) => handleScrollClick(e, "gallery")}
+            className="relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-[color:var(--gold)] after:transition-transform after:duration-300 hover:after:scale-x-100 transition"
+          >
+            Gallery
+          </Link>
+          <Link
+            href="/#contact"
+            onClick={(e) => handleScrollClick(e, "contact")}
+            className="relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-[color:var(--gold)] after:transition-transform after:duration-300 hover:after:scale-x-100 transition"
+          >
+            Contact
+          </Link>
+        </nav>
+        <div className="flex items-center gap-4 z-50">
+          <button
+            onClick={() => openBookingModal()}
+            className="btn-gold hover:[&]:btn-gold-hover text-[10px] sm:text-xs uppercase tracking-[0.2em] px-3.5 sm:px-5 py-1.5 sm:py-2"
+          >
+            Book Now
+          </button>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="p-1.5 rounded-full border border-border/60 text-foreground md:hidden hover:bg-secondary transition flex items-center justify-center cursor-pointer"
+            aria-label="Toggle Menu"
+          >
+            {menuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            )}
+          </button>
         </div>
+      </div>
 
-        {/* Center: Centered Logo */}
-        <div className="flex justify-center">
-          {isScrolled && (
-            <motion.div
-              layoutId="logo-container"
-              className="flex items-center"
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      {menuOpen && (
+        <div className="fixed inset-0 bg-background/95 backdrop-blur-md z-40 md:hidden flex flex-col justify-center px-8 py-20 animate-fade-in">
+          <nav className="flex flex-col gap-6 text-center text-lg uppercase tracking-[0.25em] font-medium">
+            <Link
+              href="/#stays"
+              onClick={(e) => {
+                setMenuOpen(false);
+                handleScrollClick(e, "stays");
+              }}
+              className="hover:text-[color:var(--gold)] transition"
             >
-              <motion.a
-                layoutId="logo-text"
-                href="#"
-                className="font-display text-2xl tracking-wide text-foreground"
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              >
-                Jalashay<span className="text-gold">.</span>
-              </motion.a>
-            </motion.div>
-          )}
-        </div>
+              Stays
+            </Link>
+            <Link
+              href="/#experiences"
+              onClick={(e) => {
+                setMenuOpen(false);
+                handleScrollClick(e, "experiences");
+              }}
+              className="hover:text-[color:var(--gold)] transition"
+            >
+              Experiences
+            </Link>
+            <Link
+              href="/#dining"
+              onClick={(e) => {
+                setMenuOpen(false);
+                handleScrollClick(e, "dining");
+              }}
+              className="hover:text-[color:var(--gold)] transition"
+            >
+              Dining
+            </Link>
+            <Link
+              href="/#gallery"
+              onClick={(e) => {
+                setMenuOpen(false);
+                handleScrollClick(e, "gallery");
+              }}
+              className="hover:text-[color:var(--gold)] transition"
+            >
+              Gallery
+            </Link>
+            <Link
+              href="/#contact"
+              onClick={(e) => {
+                setMenuOpen(false);
+                handleScrollClick(e, "contact");
+              }}
+              className="hover:text-[color:var(--gold)] transition"
+            >
+              Contact
+            </Link>
 
-        {/* Right Side: Book Now Button */}
-        <div className="flex justify-end">
-          <motion.div
-            animate={{ opacity: isScrolled ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ pointerEvents: isScrolled ? "auto" : "none" }}
-          >
             <button
-              onClick={() => openBooking()}
-              className="rounded-full bg-[image:var(--gradient-gold)] px-6 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-[var(--shadow-gold)] hover:scale-[1.03] transition-transform cursor-pointer"
+              onClick={() => {
+                setMenuOpen(false);
+                openBookingModal();
+              }}
+              className="btn-gold hover:[&]:btn-gold-hover text-sm uppercase tracking-[0.2em] px-8 py-3.5 mt-8 w-full max-w-xs mx-auto"
             >
               Book Now
             </button>
-          </motion.div>
+          </nav>
         </div>
-      </div>
-    </motion.header>
+      )}
+    </header>
   );
 }
+
