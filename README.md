@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jalashay Resort - Web Portal
+
+A premium, state-of-the-art web application built for **Jalashay Resort**—a serene backwater sanctuary offering palm-fringed waters, heritage stays, wellness treatments, and lakeside weddings.
+
+## Deployment Status
+* **Current Version:** `v3.0.0`
+* **Status:** Connected to the `main` branch and deployed to production.
+
+---
+
+## Tech Stack
+* **Framework:** Next.js 16 (Turbopack Enabled)
+* **Styling:** Tailwind CSS v4 & custom HSL/OKLCH color themes (Cream & Gold aesthetics)
+* **Data Fetching:** TanStack React Query (v5)
+* **Components:** Radix UI primitives & shadcn Dialog layout
+* **Payment Gateway:** Razorpay Hosted Checkout Integration
+
+---
+
+## Features
+1. **Interactive Booking Enquiries**: Seamless modal form integrated with a global context manager submitting to the resort's back-office server via React Query.
+2. **Responsive Media Showcase**: Custom 4-column responsive grid layout showing a collection of local resort images and videos.
+3. **Smooth Scroll Routing**: Enhanced page transition behaviors respect CSS smooth scrolling on single-page targets.
+4. **Mobile Responsiveness**: Dynamic hamburger menu and drop-down drawer containing all route anchors.
+5. **Mobile-Ready Parallax**: Custom scroll-relative JavaScript translate offset container for the Call-to-Action section.
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 1. Configure Environments
+Create a `.env.local` or edit `.env` in the root folder:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_WHATSAPP_NUMBER=+918040001212
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Run Development Server
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Build Production Bundle
+```bash
+npm run build
+```
