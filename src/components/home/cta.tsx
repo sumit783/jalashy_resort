@@ -10,11 +10,10 @@ export function CTA() {
     <section
       id="book"
       className="relative py-32 px-6 lg:px-10 flex items-center justify-center overflow-hidden min-h-[450px]"
-      style={{ clipPath: "inset(0)" }}
     >
-      {/* Fixed Background — stays pinned while content scrolls */}
+      {/* Background image — position:absolute is iOS-safe (no compositor crash) */}
       <div
-        className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0"
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${aerial.src})` }}
       />
 
