@@ -1,66 +1,68 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import heroFallback from "@/assets/slider-5.webp";
 import { useBookingModal } from "@/context/BookingModalContext";
 
 const heroBgVideo = "/Website_01.mp4";
 
 export function Hero() {
-  const [scrollY, setScrollY] = useState(0);
-  const [isIOS, setIsIOS] = useState(false);
+  // isIOS starts as null (unknown) so we render neither until we know
+  const [isIOS, setIsIOS] = useState<boolean | null>(null);
   const { openBookingModal } = useBookingModal();
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Detect iOS once on mount
   useEffect(() => {
     const ua = navigator.userAgent;
-    setIsIOS(
+    const ios =
       /iPad|iPhone|iPod/.test(ua) &&
-        !(window as unknown as Record<string, unknown>).MSStream
-    );
+      !(window as unknown as Record<string, unknown>).MSStream;
+    setIsIOS(ios);
   }, []);
 
-  // Track scroll position for parallax (desktop only)
+  // Autoplay video on non-iOS (iOS shows image fallback)
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Trigger video autoplay programmatically (required on iOS)
-  useEffect(() => {
+    if (isIOS !== false) return; // only run when confirmed non-iOS
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
-    video.play().catch(() => {
-      // Autoplay blocked — silently skip.
-    });
-  }, []);
-
-  // iOS Safari doesn't fire scroll events during momentum scroll,
-  // so skip JS parallax there and let the video fill the viewport.
-  const parallaxStyle = isIOS
-    ? {}
-    : { transform: `translate3d(0, ${scrollY * 0.3}px, 0) scale(1.05)` };
+    video.play().catch(() => {});
+  }, [isIOS]);
 
   return (
     <section className="relative h-[100svh] overflow-hidden">
-      <div className="absolute inset-0 z-0" style={parallaxStyle}>
-        <video
-          ref={videoRef}
-          src={heroBgVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          className="w-full h-full object-cover"
-          onError={(e) => console.error("Video failed to load:", e)}
-          suppressHydrationWarning
-        />
+      {/* ── Background ── */}
+      <div className="absolute inset-0 z-0">
+        {isIOS === true ? (
+          /* iOS: static image — no video decoder, no flickering, no GPU pressure */
+          <Image
+            src={heroFallback}
+            alt="Jalashay Resort hero"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        ) : (
+          /* Desktop / Android: video with no scroll interaction */
+          <video
+            ref={videoRef}
+            src={heroBgVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            disablePictureInPicture
+            className="w-full h-full object-cover"
+            onError={(e) => console.error("Video failed to load:", e)}
+            suppressHydrationWarning
+          />
+        )}
         <div className="absolute inset-0 bg-black/45" />
       </div>
 
+      {/* ── Content ── */}
       <div className="relative z-10 h-full max-w-7xl mx-auto flex flex-col justify-center px-8 lg:px-12 pt-20">
         <p className="text-[color:var(--gold)] text-xs uppercase tracking-[0.4em] mb-6">
           — Lakeside Luxury
