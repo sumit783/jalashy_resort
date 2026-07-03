@@ -107,3 +107,17 @@
 @media (max-width: 768px) {
   .parallax { background-attachment: scroll; }
 }
+
+/* ── Mobile menu animations ─────────────────────────────── */
+@keyframes menuFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes menuFadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes menuItemIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
