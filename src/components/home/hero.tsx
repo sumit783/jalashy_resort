@@ -3,50 +3,45 @@
 import { useEffect, useRef, useState } from "react";
 import { useBookingModal } from "@/context/BookingModalContext";
 
-const heroBgVideo = "/Website_01.webm";
-
-function useIsIOS() {
-  const [isIOS, setIsIOS] = useState(false);
-  useEffect(() => {
-    const ua = navigator.userAgent;
-    setIsIOS(/iPad|iPhone|iPod/.test(ua) && !(window as unknown as Record<string, unknown>).MSStream);
-  }, []);
-  return isIOS;
-}
-
-function useScrollY() {
-  const [y, setY] = useState(0);
-  useEffect(() => {
-    const on = () => setY(window.scrollY);
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
-  }, []);
-  return y;
-}
+const heroBgVideo = "/Website_01.mp4";
 
 export function Hero() {
-  const y = useScrollY();
-  const isIOS = useIsIOS();
+  const [scrollY, setScrollY] = useState(0);
+  const [isIOS, setIsIOS] = useState(false);
   const { openBookingModal } = useBookingModal();
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Detect iOS once on mount
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    setIsIOS(
+      /iPad|iPhone|iPod/.test(ua) &&
+        !(window as unknown as Record<string, unknown>).MSStream
+    );
+  }, []);
+
+  // Track scroll position for parallax (desktop only)
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Trigger video autoplay programmatically (required on iOS)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay prevented — video stays paused silently.
-      });
-    }
+    video.play().catch(() => {
+      // Autoplay blocked — silently skip.
+    });
   }, []);
 
-  // iOS Safari doesn't fire scroll events during momentum scroll —
-  // skip JS parallax there and let the video fill the viewport naturally.
+  // iOS Safari doesn't fire scroll events during momentum scroll,
+  // so skip JS parallax there and let the video fill the viewport.
   const parallaxStyle = isIOS
     ? {}
-    : { transform: `translate3d(0, ${y * 0.3}px, 0) scale(1.05)` };
+    : { transform: `translate3d(0, ${scrollY * 0.3}px, 0) scale(1.05)` };
 
   return (
     <section className="relative h-[100svh] overflow-hidden">
