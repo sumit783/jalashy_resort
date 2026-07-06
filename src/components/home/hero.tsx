@@ -28,6 +28,8 @@ export function Hero() {
           muted
           loop
           playsInline
+          webkit-playsinline
+          preload="auto"
           controls={false}
           disablePictureInPicture
           className="w-full h-full object-cover pointer-events-none"
