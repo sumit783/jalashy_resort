@@ -1,8 +1,24 @@
 import room1 from "@/assets/roomImages/020A6091.webp";
-import room2 from "@/assets/roomImages/020A6097.webp";
-import room3 from "@/assets/roomImages/020A6099.webp";
+import room2 from "@/assets/couple-cottage-images/JV_07988 (1).jpg";
+import room3 from "@/assets/roomImages/JV_08056.jpg";
 import room4 from "@/assets/roomImages/020A6152.webp";
 import room5 from "@/assets/roomImages/020A6170.webp";
+import room6 from "@/assets/roomImages/JV_07938.jpg";
+import room7 from "@/assets/roomImages/JV_07939.jpg";
+import room8 from "@/assets/roomImages/JV_07995.jpg";
+import room9 from "@/assets/roomImages/JV_08023.jpg";
+import room10 from "@/assets/roomImages/JV_08050.jpg";
+import room11 from "@/assets/roomImages/JV_08059.jpg";
+import room12 from "@/assets/roomImages/020A6097.webp";
+import room13 from "@/assets/roomImages/020A6099.webp";
+
+// Couple Cottage specific images
+import cc1 from "@/assets/couple-cottage-images/020A6516.jpg";
+import cc2 from "@/assets/couple-cottage-images/JV_07988 (1).jpg";
+import cc3 from "@/assets/couple-cottage-images/JV_07994.jpg";
+import cc4 from "@/assets/couple-cottage-images/JV_07995 - Copy.jpg";
+
+const sharedGallery = [room6, room7, room8, room9, room10, room11, room12, room13, room5];
 
 export interface RoomData {
   slug: string;
@@ -19,10 +35,10 @@ export interface RoomData {
 }
 
 export const roomsData: Record<string, RoomData> = {
-  "lakeside-premium-room": {
-    slug: "lakeside-premium-room",
-    name: "Lakeside Premium Room",
-    price: "₹14,500",
+  "couple-cottage": {
+    slug: "couple-cottage",
+    name: "Couple Cottage",
+    price: "₹7,500",
     desc: "Tariff per night for 2 adults",
     tag: "Balcony · Lake View",
     mainImage: room1,
@@ -39,12 +55,14 @@ export const roomsData: Record<string, RoomData> = {
       "Premium bath amenities & rain shower",
       "In-room Electronic Safe",
     ],
-    gallery: [room1, room5],
+    gallery: [
+      room1, cc1, cc2, cc3, cc4
+    ],
   },
-  "backwater-heritage-cottage": {
-    slug: "backwater-heritage-cottage",
-    name: "Backwater Heritage Cottage",
-    price: "₹18,200",
+  "duplex": {
+    slug: "duplex",
+    name: "Duplex",
+    price: "₹8,500",
     desc: "Tariff per night for 2 adults",
     tag: "Private Sitout · Garden View",
     mainImage: room2,
@@ -61,12 +79,12 @@ export const roomsData: Record<string, RoomData> = {
       "Spacious semi-open luxury shower",
       "Premium organic bath toiletries",
     ],
-    gallery: [room2, room5],
+    gallery: [room2, ...sharedGallery],
   },
-  "royal-lakeview-suite": {
-    slug: "royal-lakeview-suite",
-    name: "Royal Lakeview Suite",
-    price: "₹24,900",
+  "family-room": {
+    slug: "family-room",
+    name: "Family Room",
+    price: "₹9,000",
     desc: "Tariff per night for 2 adults",
     tag: "Plunge Pool · Panoramic Lake View",
     mainImage: room3,
@@ -83,12 +101,12 @@ export const roomsData: Record<string, RoomData> = {
       "24/7 dedicated butler call service",
       "High-speed Wi-Fi & Smart TV",
     ],
-    gallery: [room3, room5],
+    gallery: [room3, ...sharedGallery],
   },
-  "mango-canopy-villa": {
-    slug: "mango-canopy-villa",
-    name: "Mango Canopy Villa",
-    price: "₹29,500",
+  "suite": {
+    slug: "suite",
+    name: "Suite",
+    price: "₹10,000",
     desc: "Tariff per night for 2 adults",
     tag: "Bathtub · Private Garden",
     mainImage: room4,
@@ -105,6 +123,6 @@ export const roomsData: Record<string, RoomData> = {
       "Espresso machine & fully stocked mini bar",
       "Valet and laundry services",
     ],
-    gallery: [room4, room5],
+    gallery: [room4, ...sharedGallery],
   },
 };

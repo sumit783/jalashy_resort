@@ -3,7 +3,6 @@ import aerial from "@/assets/outsideImages/020A6056.webp";
 import yoga from "@/assets/outsideImages/020A6238.webp";
 import villa from "@/assets/wedding-lawn.webp";
 
-import backwaterJpg from "@/assets/backwater.jpg";
 import diningJpg from "@/assets/dining.jpg";
 import spaJpg from "@/assets/spa.jpg";
 import image020A6170Webp from "@/assets/020A6170.webp";
@@ -32,7 +31,7 @@ export const experiencesData: Record<string, ExperienceData> = {
       "High tea and custom beverage service served directly on the deck between 4:30 PM and 6:30 PM.",
       "Comfortable modular lounge seating with warm wind protection.",
     ],
-    gallery: [backwater, image020A6170Webp, backwaterJpg],
+    gallery: [backwater, image020A6170Webp],
   },
   "lakeside-palms-canopy": {
     slug: "lakeside-palms-canopy",

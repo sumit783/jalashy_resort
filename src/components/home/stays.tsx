@@ -3,43 +3,43 @@
 import Link from "next/link";
 import Image from "next/image";
 import room1 from "@/assets/roomImages/020A6091.webp";
-import room2 from "@/assets/roomImages/020A6097.webp";
-import room3 from "@/assets/roomImages/020A6099.webp";
-import room4 from "@/assets/roomImages/020A6152.webp";
+import room2 from "@/assets/couple-cottage-images/JV_07988 (1).jpg";
+import room3 from "@/assets/roomImages/JV_08056.jpg";
+import room4 from "@/assets/roomImages/020A6099.webp";
 
 export function Stays() {
   const rooms = [
     {
-      name: "Lakeside Premium Room",
-      price: "₹0",
-      desc: "Tariff per night for 2 adults",
+      name: "Couple Cottage",
+      price: "₹7,500",
+      desc: "Weekday Tariff for 2 adults",
       img: room1,
-      tag: "Balcony · Lake View",
-      slug: "lakeside-premium-room",
+      tag: "8 Cottages",
+      slug: "couple-cottage",
     },
     {
-      name: "Backwater Heritage Cottage",
-      price: "₹0",
-      desc: "Tariff per night for 2 adults",
+      name: "Duplex",
+      price: "₹8,500",
+      desc: "Weekday Tariff for 2 adults",
       img: room2,
-      tag: "Private Sitout · Garden View",
-      slug: "backwater-heritage-cottage",
+      tag: "8 Rooms",
+      slug: "duplex",
     },
     {
-      name: "Royal Lakeview Suite",
-      price: "₹0",
-      desc: "Tariff per night for 2 adults",
+      name: "Family Room",
+      price: "₹9,000",
+      desc: "Weekday Tariff for 2 adults",
       img: room3,
-      tag: "Plunge Pool · Panoramic Lake View",
-      slug: "royal-lakeview-suite",
+      tag: "3 Rooms",
+      slug: "family-room",
     },
     {
-      name: "Mango Canopy Villa",
-      price: "₹0",
-      desc: "Tariff per night for 2 adults",
+      name: "Suite",
+      price: "₹10,000",
+      desc: "Weekday Tariff for 2 adults",
       img: room4,
-      tag: "Bathtub · Private Garden",
-      slug: "mango-canopy-villa",
+      tag: "4 Suites",
+      slug: "suite",
     },
   ];
 
