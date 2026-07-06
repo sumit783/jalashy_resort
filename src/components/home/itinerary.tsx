@@ -8,7 +8,7 @@ import foodImage from "@/assets/food_Image.jpg"
 import cinemaImg from "@/assets/madrid-spain-seats-and-screen-of-the-open-air-cinema-cineplaza-in-the-plaza-de-matadero.webp";
 import trekImg from "@/assets/DJI_0586.jpg.jpeg";
 import karaokeImg from "@/assets/black-microphone-karaoke-club-remote-controller-melon-strawberry-soda-drinks-yellow-tambourine-screen-singing-125689156.webp";
-import breakfastImg from "@/assets/sliderImage/slider-3.webp";
+import breakfastImg from "@/assets/020A6320.jpg";
 import checkoutImg from "@/assets/sliderImage/slider-4.webp";
 
 const schedule = [

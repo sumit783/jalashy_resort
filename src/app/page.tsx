@@ -31,7 +31,7 @@ export default function Page() {
       <Experiences />
       <Itinerary />
       <Dining />
-      <Amenities />
+      {/* <Amenities /> */}
       <Gallery />
       <Testimonials />
       <CTA />
