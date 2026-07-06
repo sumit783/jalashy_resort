@@ -12,6 +12,7 @@ import {
   Testimonials,
   CTA,
   Footer,
+  Itinerary,
 } from "@/components/home";
 import backwater from "@/assets/sliderImage/slider-5.webp";
 
@@ -26,8 +27,9 @@ export default function Page() {
         title="Silence, at last."
         sub="Twelve acres by the lake. No cars. No clocks."
       />
-      <Experiences />
       <Stays />
+      <Experiences />
+      <Itinerary />
       <Dining />
       <Amenities />
       <Gallery />

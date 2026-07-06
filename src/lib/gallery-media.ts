@@ -1,6 +1,5 @@
 // Basic core assets
 import spa from "@/assets/spa.jpg";
-import backwater from "@/assets/backwater.jpg";
 import dining from "@/assets/dining.jpg";
 import hero from "@/assets/hero.jpg";
 import image020A6170Webp from "@/assets/020A6170.webp";
@@ -13,6 +12,20 @@ import room2 from "@/assets/roomImages/020A6097.webp";
 import room3 from "@/assets/roomImages/020A6099.webp";
 import room4 from "@/assets/roomImages/020A6152.webp";
 import room5 from "@/assets/roomImages/020A6170.webp";
+
+import roomImg1 from "@/assets/roomImages/JV_07938.jpg";
+import roomImg2 from "@/assets/roomImages/JV_07939.jpg";
+import roomImg3 from "@/assets/roomImages/JV_07995.jpg";
+import roomImg4 from "@/assets/roomImages/JV_08023.jpg";
+import roomImg5 from "@/assets/roomImages/JV_08050.jpg";
+import roomImg6 from "@/assets/roomImages/JV_08056.jpg";
+import roomImg7 from "@/assets/roomImages/JV_08059.jpg";
+
+import cottageImg1 from "@/assets/couple-cottage-images/020A6516.jpg";
+import cottageImg2 from "@/assets/couple-cottage-images/JV_07988 (1).jpg";
+import cottageImg3 from "@/assets/couple-cottage-images/JV_07988.jpg";
+import cottageImg4 from "@/assets/couple-cottage-images/JV_07994.jpg";
+import cottageImg5 from "@/assets/couple-cottage-images/JV_07995 - Copy.jpg";
 
 // Home Images
 import home1 from "@/assets/home_images/020A5924.webp";
@@ -56,7 +69,6 @@ export const galleryMedia: MediaItem[] = [
 
   // Images
   { type: "image", src: spa, alt: "Wellness Spa Sanctuary" },
-  { type: "image", src: backwater, alt: "Serene Backwater Frontage" },
   { type: "image", src: dining, alt: "Lakeside Dining Restaurant" },
   { type: "image", src: hero, alt: "Resort Heritage Frontage" },
   { type: "image", src: weddingLawn, alt: "Wedding Lawn Setup" },
@@ -69,6 +81,18 @@ export const galleryMedia: MediaItem[] = [
   { type: "image", src: room3, alt: "Royal Lakeview Suite Interior" },
   { type: "image", src: room4, alt: "Mango Canopy Villa Interior" },
   { type: "image", src: room5, alt: "Heritage Suite Washroom" },
+  { type: "image", src: roomImg1, alt: "Resort Interior View" },
+  { type: "image", src: roomImg2, alt: "Luxury Room Details" },
+  { type: "image", src: roomImg3, alt: "Premium Resort Stay" },
+  { type: "image", src: roomImg4, alt: "Cottage Interior Vista" },
+  { type: "image", src: roomImg5, alt: "Elegant Room Setup" },
+  { type: "image", src: roomImg6, alt: "Resort Bedroom Styling" },
+  { type: "image", src: roomImg7, alt: "Luxurious Resort Details" },
+  { type: "image", src: cottageImg1, alt: "Couple Cottage Interior" },
+  { type: "image", src: cottageImg2, alt: "Couple Cottage Bed setup" },
+  { type: "image", src: cottageImg3, alt: "Couple Cottage Living" },
+  { type: "image", src: cottageImg4, alt: "Cottage Amenities" },
+  { type: "image", src: cottageImg5, alt: "Couple Cottage Washroom" },
 
   // Home Images
   { type: "image", src: home1, alt: "Veranda and Lounge Area" },

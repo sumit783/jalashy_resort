@@ -1,36 +1,35 @@
 import Image from "next/image";
-import dining from "@/assets/dining.jpg";
-import spa from "@/assets/spa.jpg";
-import backwater from "@/assets/backwater.jpg";
+import img1 from "@/assets/outsideImages/020A6512.jpg";
+import img2 from "@/assets/020A6391.jpg";
+import img3 from "@/assets/sliderImage/slider-5.webp";
 
 export function Dining() {
   const items = [
-    { t: "Lakeside Restaurant", sub: "All-Day Dining", d: "Multi-cuisine · Lake views" },
-    { t: "Suvarna", sub: "Tasting Menu", d: "Seasonal · 7 courses" },
-    { t: "The Cellar", sub: "Wine & Small Plates", d: "Sommelier curated" },
+    { t: "Backwater Cruise", sub: "Guided Boat Tour", d: "Explore the serene Suvarna river ecosystem" },
+    { t: "Historic Temples", sub: "Cultural Heritage", d: "Ancient architecture and local traditions" },
+    { t: "Nature Trails", sub: "Guided Hikes", d: "Discover local flora and hidden viewpoints" },
   ];
   return (
-    <section id="dining" className="py-28 px-6 lg:px-10">
+    <section id="tourism" className="py-28 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 mb-16 items-end">
           <div>
             <p className="text-[10px] uppercase tracking-[0.4em] text-[color:var(--gold)]">
-              — Dining
+              — Explore
             </p>
-            <h2 className="font-display text-5xl md:text-6xl mt-4 leading-tight">
-              Lakeside culinary <em>celebrations.</em>
+            <h2 className="font-display text-5xl md:text-6xl mt-4 leading-tight text-balance">
+              Beyond the <em>resort.</em>
             </h2>
           </div>
           <p className="text-muted-foreground font-light leading-relaxed">
-            Multi-cuisine dining with warm interiors and uninterrupted views over the water. From
-            wood-fired breakfasts on the deck to curated tasting menus under the stars.
+            Jalashay is surrounded by rich cultural heritage and pristine natural landscapes. Embark on curated excursions to historic temples, navigate the serene backwaters, or hike through lush forest trails.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {items.map((r, i) => (
             <article key={r.t} className="group relative aspect-[4/5] overflow-hidden rounded-2xl">
               <Image
-                src={[dining, spa, backwater][i]}
+                src={[img1, img2, img3][i]}
                 alt={r.t}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"

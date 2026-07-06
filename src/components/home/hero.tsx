@@ -1,64 +1,39 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import heroFallback from "@/assets/slider-5.webp";
+import { useEffect, useRef } from "react";
 import { useBookingModal } from "@/context/BookingModalContext";
 
 const heroBgVideo = "/Website_01.mp4";
 
 export function Hero() {
-  // isIOS starts as null (unknown) so we render neither until we know
-  const [isIOS, setIsIOS] = useState<boolean | null>(null);
   const { openBookingModal } = useBookingModal();
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Autoplay video reliably across browsers
   useEffect(() => {
-    const ua = navigator.userAgent;
-    const ios =
-      /iPad|iPhone|iPod/.test(ua) &&
-      !(window as unknown as Record<string, unknown>).MSStream;
-    setIsIOS(ios);
-  }, []);
-
-  // Autoplay video on non-iOS (iOS shows image fallback)
-  useEffect(() => {
-    if (isIOS !== false) return; // only run when confirmed non-iOS
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
     video.play().catch(() => {});
-  }, [isIOS]);
+  }, []);
 
   return (
     <section className="relative h-[100svh] overflow-hidden">
       {/* ── Background ── */}
       <div className="absolute inset-0 z-0">
-        {isIOS === true ? (
-          /* iOS: static image — no video decoder, no flickering, no GPU pressure */
-          <Image
-            src={heroFallback}
-            alt="Jalashay Resort hero"
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
-        ) : (
-          /* Desktop / Android: video with no scroll interaction */
-          <video
-            ref={videoRef}
-            src={heroBgVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            disablePictureInPicture
-            className="w-full h-full object-cover"
-            onError={(e) => console.error("Video failed to load:", e)}
-            suppressHydrationWarning
-          />
-        )}
+        <video
+          ref={videoRef}
+          src={heroBgVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls={false}
+          disablePictureInPicture
+          className="w-full h-full object-cover pointer-events-none"
+          onError={(e) => console.error("Video failed to load:", e)}
+          suppressHydrationWarning
+        />
         <div className="absolute inset-0 bg-black/45" />
       </div>
 

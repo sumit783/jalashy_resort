@@ -10,3 +10,4 @@ export { Gallery } from "./gallery";
 export { Testimonials } from "./testimonials";
 export { CTA } from "./cta";
 export { Footer } from "./footer";
+export { Itinerary } from "./itinerary";
