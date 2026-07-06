@@ -14,7 +14,7 @@ export function Hero() {
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
-    video.play().catch(() => {});
+    video.play().catch(() => { });
   }, []);
 
   return (
@@ -29,9 +29,10 @@ export function Hero() {
           loop
           playsInline
           webkit-playsinline
-          preload="auto"
-          controls={false}
+          controlsList="nodownload noplaybackrate nofullscreen"
           disablePictureInPicture
+          disableRemotePlayback
+          preload="auto"
           className="w-full h-full object-cover pointer-events-none"
           onError={(e) => console.error("Video failed to load:", e)}
           suppressHydrationWarning
