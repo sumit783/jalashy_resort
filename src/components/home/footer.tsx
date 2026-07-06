@@ -21,9 +21,10 @@ export function Footer() {
             <p className="mt-4 font-light leading-relaxed text-primary-foreground/80">
               Lake Suvarna
               <br />
-              Eastern Shore, KA-573101
+              MANAGED BY LETTERBOX HOSPITALITY
+              JALASHAY
               <br />
-              India
+              PANSHET, MAHARASHTRA
             </p>
           </div>
           <div>

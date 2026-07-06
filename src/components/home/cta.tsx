@@ -40,10 +40,10 @@ export function CTA() {
             Reserve Your Stay
           </button>
           <a
-            href="tel:+918040001212"
+            href="tel:+917378818818"
             className="rounded-full border border-white/60 text-white text-sm uppercase tracking-[0.2em] px-7 py-[0.85rem] font-medium hover:bg-white/10 transition"
           >
-            +91 80 4000 1212
+            +91 73788 18818
           </a>
         </div>
       </div>
