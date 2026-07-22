@@ -70,8 +70,21 @@ export function BookingModalProvider({ children }: { children: React.ReactNode }
       }
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       setSuccess(true);
+
+      const message = `New Booking Request:
+Name: ${variables.name}
+Phone: ${variables.phoneNo}
+Category: ${variables.category}
+Check-in: ${variables.checkIn}
+Check-out: ${variables.checkOut}
+Adults: ${variables.guests}
+Children: ${variables.children}`;
+
+      const whatsappUrl = `https://wa.me/917378818818?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, "_blank");
+
       setFormData({
         name: "",
         phoneNo: "",
