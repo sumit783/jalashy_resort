@@ -28,7 +28,7 @@ export function Hero() {
           muted
           loop
           playsInline
-          webkit-playsinline
+          webkit-playsinline="true"
           controlsList="nodownload noplaybackrate nofullscreen"
           disablePictureInPicture
           disableRemotePlayback
