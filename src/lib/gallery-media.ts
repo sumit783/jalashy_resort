@@ -55,8 +55,16 @@ export interface MediaItem {
 }
 
 export const galleryMedia: MediaItem[] = [
-  // Videos from public folder
+  // Homepage preview featured items (1 video + 6 optimized photos)
   { type: "video", src: "/Website_01.webm", alt: "Jalashay Lakeside View" },
+  { type: "image", src: dining, alt: "Lakeside Dining Restaurant" },
+  { type: "image", src: spa, alt: "Wellness Spa Sanctuary" },
+  { type: "image", src: weddingLawn, alt: "Wedding Lawn Setup" },
+  { type: "image", src: hero, alt: "Resort Heritage Frontage" },
+  { type: "image", src: slider5, alt: "Resort Exterior View" },
+  { type: "image", src: image020A6170Webp, alt: "Resort Room Vista" },
+
+  // Additional Videos
   { type: "video", src: "/Website_04.webm", alt: "Lakeside Lawn Sunset" },
   { type: "video", src: "/hero_bg.mp4", alt: "Resort Walkthrough Video" },
   { type: "video", src: "/trees.webm", alt: "Grove Canopy Video" },
@@ -66,14 +74,6 @@ export const galleryMedia: MediaItem[] = [
   { type: "video", src: "/Website_09.webm", alt: "Heritage Architecture Tour" },
   { type: "video", src: "/Website_010.webm", alt: "Lakeside Breeze Video" },
   { type: "video", src: "/Website_Video_02.webm", alt: "Resort drone aerial flight" },
-
-  // Images
-  { type: "image", src: spa, alt: "Wellness Spa Sanctuary" },
-  { type: "image", src: dining, alt: "Lakeside Dining Restaurant" },
-  { type: "image", src: hero, alt: "Resort Heritage Frontage" },
-  { type: "image", src: weddingLawn, alt: "Wedding Lawn Setup" },
-  { type: "image", src: image020A6170Webp, alt: "Resort Room Vista" },
-  { type: "image", src: slider5, alt: "Resort Exterior View" },
 
   // Room Images
   { type: "image", src: room1, alt: "Lakeside Premium Room Interior" },

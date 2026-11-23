@@ -23,7 +23,6 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
-          src={heroBgVideo}
           autoPlay
           muted
           loop
@@ -32,11 +31,14 @@ export function Hero() {
           controlsList="nodownload noplaybackrate nofullscreen"
           disablePictureInPicture
           disableRemotePlayback
-          preload="auto"
+          preload="metadata"
           className="w-full h-full object-cover pointer-events-none"
           onError={(e) => console.error("Video failed to load:", e)}
           suppressHydrationWarning
-        />
+        >
+          <source src="/Website_01.webm" type="video/webm" />
+          <source src="/Website_01.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/45" />
       </div>
 

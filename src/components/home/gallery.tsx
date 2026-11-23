@@ -48,6 +48,7 @@ export function Gallery() {
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1500ms]"
                     suppressHydrationWarning
                   />
